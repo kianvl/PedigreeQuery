@@ -1,0 +1,2 @@
+# PedigreeQuery
+Pedigree drawing
