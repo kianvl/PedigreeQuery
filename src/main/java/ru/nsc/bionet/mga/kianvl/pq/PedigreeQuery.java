@@ -9,10 +9,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class PedigreeQuery extends JFrame
-{
-    public PedigreeQuery()
-    {
+public class PedigreeQuery extends JFrame {
+    public PedigreeQuery() {
         super("PedigreeQuery");
         DrawPedigree DrPdgr = new DrawPedigree(this, null, null);
         JScrollPane scroll = new JScrollPane(DrPdgr);
@@ -62,20 +60,16 @@ public class PedigreeQuery extends JFrame
     }
 
 
-    public Dimension getPreferredSize()
-    {
+    public Dimension getPreferredSize() {
         Dimension PQDmnsn;
         return PQDmnsn = new Dimension(512, 384);
     }
 
 
-    public static void main (String args[])
-    {
+    public static void main (String args[]) {
         PedigreeQuery app = new PedigreeQuery();
-        WindowListener wL = new WindowAdapter()
-        {
-            public void windowClosing (WindowEvent e)
-            {
+        WindowListener wL = new WindowAdapter() {
+            public void windowClosing (WindowEvent e) {
                 ((Window) e.getSource()).dispose();
                 System.exit(0);
             }

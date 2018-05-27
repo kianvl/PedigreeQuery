@@ -10,25 +10,25 @@ import java.io.RandomAccessFile;
 
 class DrawPedigree extends JPanel
 {
-    Dimension DPdim;
-    JFrame ParentFrame;
+    private Dimension DPdim;
+    private JFrame ParentFrame;
     Color cvet0, cvet1;
-    String FilePrsnXYName;
-    String PdgrLnsFileName;
+    private String FilePrsnXYName;
+    private String PdgrLnsFileName;
     String FilePdgrName;
-    int DimX, DimY;
+    private int DimX, DimY;
 
-    int SS = 20; //Размер символа
-    int SD = 10; //Расстояние между символами по горизонтали
-    int SP = 12; //Расстояние от символа до подписи.
-    int PL = 12; //Расстояние от нижней подписи, до ближайшей к ней горизонтальной линии
-    int SV0 = 15; //Высота индивидуальной сибовой
-    int SV[];
-    int LD = 6;//Расстояние между линиями
-    int AS = 8;//Диаметр дуги
-    int AS2;
-    int SSD; //SS + SD
-    int SS2; //SS/2;
+    private int SS = 20; //Размер символа
+    private int SD = 10; //Расстояние между символами по горизонтали
+    private int SP = 12; //Расстояние от символа до подписи.
+    private int PL = 12; //Расстояние от нижней подписи, до ближайшей к ней горизонтальной линии
+    private int SV0 = 15; //Высота индивидуальной сибовой
+    private int SV[];
+    private int LD = 6;//Расстояние между линиями
+    private int AS = 8;//Диаметр дуги
+    private int AS2;
+    private int SSD; //SS + SD
+    private int SS2; //SS/2;
     int AmntPrsn;
     int PrsnXY[][];
     int PrsnID[];

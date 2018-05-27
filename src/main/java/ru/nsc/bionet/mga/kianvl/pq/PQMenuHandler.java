@@ -10,52 +10,47 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 
-class PQMenuHandler implements ActionListener
-{
+class PQMenuHandler implements ActionListener {
     private JFrame menus;
-//1    PedigreeQuerySteps PdgrQrStps;
+    PedigreeQuerySteps PdgrQrStps;
     private DrawPedigree DrPdgr;
     private JScrollPane scroll;
     private String ProjectName;
 
-    public PQMenuHandler (JFrame menus, DrawPedigree DrPdgr, JScrollPane scroll)
-    {
+    PQMenuHandler (JFrame menus, DrawPedigree DrPdgr, JScrollPane scroll) {
         this.menus = menus;
         this.DrPdgr = DrPdgr;
         this.scroll = scroll;
     }
 
-    public void actionPerformed (ActionEvent ae)
-    {
+    public void actionPerformed (ActionEvent ae) {
         String arg = ae.getActionCommand();
 //        boolean DataOk; // never used
 
         if (arg.equals("Exit")) System.exit(0);
 
-        if (arg.equals("Save"))
-        {
-            if (ProjectName == null)
-            {
+        if (arg.equals("Save")) {
+            if (ProjectName == null) {
                 JOptionPane.showMessageDialog (menus, "At first you need to run the project!");
                 return;
             }
+
             JFileChooser fc = new JFileChooser ("Projects/" + ProjectName);
             fc.showSaveDialog(menus);
-//1            NewLinkageData LnkgData = new NewLinkageData ();
-            if (fc.getSelectedFile().exists())
-            {
+            NewLinkageData LnkgData = new NewLinkageData ();
+            if (fc.getSelectedFile().exists()) {
                 JOptionPane.showMessageDialog(menus, "File exists!");
             }
+
             // запись фрагмента родословной в LINKAGE-формате
-            try
-            {
+            try {
 //1                LnkgData.DoNewData (fc.getSelectedFile(), "temp/Pedigree.tmp", "temp/PrsnsXY.tmp");
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 JOptionPane.showMessageDialog(menus, "" + e);
                 return;
             }
+
             // запись картинки фрагмента родословной
 //1            PQEPSFile PQepsfile = new PQEPSFile ();
             try
