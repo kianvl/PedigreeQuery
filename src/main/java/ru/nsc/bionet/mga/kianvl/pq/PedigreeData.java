@@ -8,7 +8,7 @@ import java.io.RandomAccessFile;
 //Чтение и запись бесформатного варианта LINKAGE
 class PedigreeData {
     // количество индивидов
-    private int AmntPrsns;
+    public int AmntPrsns;
     // строковый персональный шифр
     String PrsnID[];
     // шифры родителей - как порядковый номер в списке
@@ -16,7 +16,7 @@ class PedigreeData {
     // шифр пола
     int SexID[];
 
-    private void ArrayData() {
+    void ArrayData() {
         PrsnID = new String[AmntPrsns];
         PrntsID[0] = new int[AmntPrsns];
         PrntsID[1] = new int[AmntPrsns];

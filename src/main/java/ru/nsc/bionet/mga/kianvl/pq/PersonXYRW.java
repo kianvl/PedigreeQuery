@@ -12,13 +12,13 @@ class PersonXYRW {
     // персональный шифр
     int PrsnID[];
     // шифр пола
-    private int SexID[];
+    public int SexID[];
     // координата в линии поколения
-    private int iX[];
+    public int iX[];
     // поколение
-    private int iY[];
+    public int iY[];
     // является ли пойнтером
-    private boolean bNxt[];
+    public boolean bNxt[];
 
 
     private void ArrayData()     {

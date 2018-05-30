@@ -6,12 +6,10 @@ package ru.nsc.bionet.mga.kianvl.pq;
 import javax.swing.*;
 import java.io.File;
 
-class NewLinkageData
-{
+class NewLinkageData {
     private JFrame ParentFrame;
 
-    boolean DoNewData (File EPSFile, String FilePdgrName, String FilePrsnXYName)
-    {
+    boolean DoNewData (File EPSFile, String FilePdgrName, String FilePrsnXYName) {
         int i, j;
 
         // чтение данных о всей родословной
@@ -39,11 +37,9 @@ class NewLinkageData
         LnkgDataW.AmntPrsns = PrsnXYRW.AmntPrsn;
 
         LnkgDataW.ArrayData();
-        for (i=0; i<PrsnXYRW.AmntPrsn; i++)
-        {
+        for (i=0; i<PrsnXYRW.AmntPrsn; i++) {
             LnkgDataW.PrsnID[i] = PdgrData.PrsnID[PrsnXYRW.PrsnID[i]];
-            for (j=0; j<2; j++)
-            {
+            for (j=0; j<2; j++) {
                 if (PdgrData.PrntsID[j][PrsnXYRW.PrsnID[i]] == 0)
                     LnkgDataW.PrntsID[j][i] = "0";
                 else
@@ -55,12 +51,10 @@ class NewLinkageData
                 LnkgDataW.SexID[i] = "female";
         }
 
-        try
-        {
+        try {
             LnkgDataW.WData (EPSFile);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             JOptionPane.showMessageDialog(ParentFrame, "" + e);
             return false;
         }

@@ -21,7 +21,7 @@ class LinkageDataW
         PrsnID = new String[AmntPrsns];
         PrntsID[0] = new String[AmntPrsns];
         PrntsID[1] = new String[AmntPrsns];
-        SexID = new String [AmntPrsns];
+        SexID = new String[AmntPrsns];
     }
 
     void WData (File LnkgFileName) throws Exception {

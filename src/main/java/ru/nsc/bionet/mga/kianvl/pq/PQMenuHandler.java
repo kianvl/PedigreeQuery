@@ -44,7 +44,7 @@ class PQMenuHandler implements ActionListener {
 
             // запись фрагмента родословной в LINKAGE-формате
             try {
-//1                LnkgData.DoNewData (fc.getSelectedFile(), "temp/Pedigree.tmp", "temp/PrsnsXY.tmp");
+                LnkgData.DoNewData (fc.getSelectedFile(), "temp/Pedigree.tmp", "temp/PrsnsXY.tmp");
             }
             catch (Exception e) {
                 JOptionPane.showMessageDialog(menus, "" + e);
@@ -52,87 +52,72 @@ class PQMenuHandler implements ActionListener {
             }
 
             // запись картинки фрагмента родословной
-//1            PQEPSFile PQepsfile = new PQEPSFile ();
-            try
-            {
-//1                PQepsfile.PQEPSFile (fc.getSelectedFile(), "temp/PrsnsXY.tmp", "temp/LinesXY.tmp");
+            PQEPSFile PQepsfile = new PQEPSFile ();
+            try {
+                PQepsfile.PQEPSFile (fc.getSelectedFile(), "temp/PrsnsXY.tmp", "temp/LinesXY.tmp");
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 JOptionPane.showMessageDialog(menus, "" + e);
                 return;
             }
         }
 
         //размеры символов и расстояний между ними
-/* 2
-        if (arg.equals("Sizes"))
-        {
+        if (arg.equals("Sizes")) {
             JFrame PQSzs;
             PQSzs = new PQSizes();
             PQSzs.setSize(512, 384);
             PQSzs.repaint();
             PQSzs.setVisible(true);
-            PQSzs.addWindowListener(new WindowAdapter()
-            {
-                public void windowClosing(WindowEvent we)
-                {
+            PQSzs.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent we) {
                     scroll.repaint();
                     DrPdgr.setSize(0,0);
                 }
             });
         }
-*/
 
         //Статистика
-/* 2
-        if (arg.equals("Statistics"))
-        {
+        if (arg.equals("Statistics")) {
             JFrame PQStt;
             PQStt = new PQStatistics();
             PQStt.setSize(512, 384);
             PQStt.repaint();
             PQStt.setVisible(true);
-            PQStt.addWindowListener(new WindowAdapter ()
-            {
-                public void windowClosing(WindowEvent we)
-                {
+            PQStt.addWindowListener(new WindowAdapter () {
+                public void windowClosing(WindowEvent we) {
                     scroll.repaint();
                     DrPdgr.setSize(0,0);
                 }
             });
         }
-*/
+
         //создание нового проекта
-        if (arg.equals("New"))
-        {
+        if (arg.equals("New")) {
             ProjectName = (String)JOptionPane.showInputDialog(menus, "Please enter project name");
             if (ProjectName.equals("") | ProjectName==null)
                 return;
             File parent = new File("Projects/" + ProjectName);
-            if (parent.exists())
-            {
+            if (parent.exists()) {
                 JOptionPane.showMessageDialog(menus, "Such project already exist!");
                 return;
             }
             parent.mkdirs();
             JFrame PQPrjct;
-// 3            PQPrjct = new PQProjects(ProjectName);
-// 3            PQPrjct.setSize(640, 480);
-// 3            PQPrjct.repaint();
-// 3            PQPrjct.setVisible(true);
+            PQPrjct = new PQProjects(ProjectName);
+            PQPrjct.setSize(640, 480);
+            PQPrjct.repaint();
+            PQPrjct.setVisible(true);
             menus.setTitle("PedigreeQuery - Project - " + ProjectName);
         }
 
         //открытие имеющегося проекта
-        if (arg.equals("Open"))
-        {
+        if (arg.equals("Open")) {
             ProjectName = (String)JOptionPane.showInputDialog (menus, "Please enter project name");
             if (ProjectName.equals("") | ProjectName==null)
                 return;
             File parent = new File("Projects/" + ProjectName);
-            if (!parent.exists())
-            {
+            if (!parent.exists()) {
                 JOptionPane.showMessageDialog (menus, "There is no such project!");
                 ProjectName = null;
                 return;
@@ -150,16 +135,13 @@ class PQMenuHandler implements ActionListener {
         }
 
         //редактирование имеющегося проекта
-        if (arg.equals("Edit"))
-        {
-            if (ProjectName == null)
-            {
+        if (arg.equals("Edit")) {
+            if (ProjectName == null) {
                 ProjectName = (String)JOptionPane.showInputDialog (menus, "Please enter project name");
                 if (ProjectName.equals("") | ProjectName==null)
                     return;
                 File parent = new File("Projects/" + ProjectName);
-                if (!parent.exists())
-                {
+                if (!parent.exists()) {
                     JOptionPane.showMessageDialog(menus, "There is no such project!");
                     ProjectName = null;
                     return;
@@ -167,44 +149,36 @@ class PQMenuHandler implements ActionListener {
                 menus.setTitle("PedigreeQuery - Project - " + ProjectName);
             }
             JFrame PQPrjct;
-// 4            PQPrjct = new PQProjects(ProjectName);
-// 4            PQPrjct.setSize(640, 480);
-// 4            PQPrjct.repaint();
-// 4            PQPrjct.setVisible(true);
+            PQPrjct = new PQProjects(ProjectName);
+            PQPrjct.setSize(640, 480);
+            PQPrjct.repaint();
+            PQPrjct.setVisible(true);
         }
 
         //запуск проекта
-        if (arg.equals("Run"))
-        {
+        if (arg.equals("Run")) {
             //если проект еще не открыт, то запросить имя проекта
-            if (ProjectName == null)
-            {
+            if (ProjectName == null) {
                 ProjectName = (String)JOptionPane.showInputDialog(menus, "Please enter project name");
                 if (ProjectName.equals("") | ProjectName==null)
                     return;
                 File parent = new File("Projects/" + ProjectName);
-                if (!parent.exists())
-                {
+                if (!parent.exists()) {
                     JOptionPane.showMessageDialog(menus, "There is no such project!");
                     ProjectName = null;
                     return;
                 }
                 menus.setTitle("PedigreeQuery - Project - " + ProjectName);
             }
-/* 5
+
             PQFullDataMake FllDtMk;
             FllDtMk = new PQFullDataMake();
-            try
-            {
-                if (!FllDtMk.MakeFullData(menus, ProjectName))
-                    return;
+            try {
+                FllDtMk.MakeFullData(menus, ProjectName);
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 JOptionPane.showMessageDialog(menus, "" + e);
-                return;
             }
-*/
 
 /* 6
             PedigreeToFamilies PdgrTFml = new PedigreeToFamilies("temp/Pedigree.tmp", "temp/Families.tmp");
