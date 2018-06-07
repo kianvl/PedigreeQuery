@@ -10,9 +10,9 @@ class FamiliesGenerationsRW {
     // количество семей
     int AmntFml;
     // шифры семей
-    private int FmlID[];
+    int FmlID[];
     // поколения семей
-    private int FmlGnrtn[];
+    int FmlGnrtn[];
 
 
     private void ArrayData() {

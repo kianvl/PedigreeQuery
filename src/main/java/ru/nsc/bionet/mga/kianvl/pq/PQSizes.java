@@ -86,7 +86,7 @@ class PQSizes extends JFrame {
     }
 
 
-    public PQSizes() {
+    PQSizes() {
         super("Sizes");
         WindowListener wL = new WindowAdapter() {
             public void windowClosing(WindowEvent e) {

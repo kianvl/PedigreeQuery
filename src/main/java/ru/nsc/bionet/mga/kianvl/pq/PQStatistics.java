@@ -31,7 +31,7 @@ class PQStatistics extends JFrame {
         return true;
     }
 
-    public PQStatistics() {
+    PQStatistics() {
         super("Statistics");
         WindowListener wL = new WindowAdapter() {
             public void windowClosing(WindowEvent e) {

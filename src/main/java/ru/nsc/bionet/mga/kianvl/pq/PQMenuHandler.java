@@ -12,7 +12,7 @@ import java.io.File;
 
 class PQMenuHandler implements ActionListener {
     private JFrame menus;
-    PedigreeQuerySteps PdgrQrStps;
+    private PedigreeQuerySteps PdgrQrStps;
     private DrawPedigree DrPdgr;
     private JScrollPane scroll;
     private String ProjectName;
@@ -180,21 +180,17 @@ class PQMenuHandler implements ActionListener {
                 JOptionPane.showMessageDialog(menus, "" + e);
             }
 
-/* 6
             PedigreeToFamilies PdgrTFml = new PedigreeToFamilies("temp/Pedigree.tmp", "temp/Families.tmp");
-            try
-            {
+            try {
                 PdgrTFml.PedToFam(menus);
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 JOptionPane.showMessageDialog(menus, "" + e);
                 return;
             }
-*/
 
-// 7            PdgrQrStps = new PedigreeQuerySteps(menus, DrPdgr, scroll);
-// 7            PdgrQrStps.DoSteps();
+            PdgrQrStps = new PedigreeQuerySteps(menus, DrPdgr, scroll);
+            PdgrQrStps.DoSteps();
         }
     }
 }

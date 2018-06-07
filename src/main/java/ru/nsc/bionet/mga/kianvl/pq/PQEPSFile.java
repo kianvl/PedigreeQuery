@@ -108,17 +108,17 @@ class PQEPSFile {
             cvet[0][i] = 0;
         int Ncvet = 1;
         for (i=0; i<PQFlDtRW.AmntPrsn; i++)
-            M0:{
-                if (PQFlDtRW.ClrRGB[i][0]==255 & PQFlDtRW.ClrRGB[i][1]==255 & PQFlDtRW.ClrRGB[i][2]==255)
+        M0:{
+            if (PQFlDtRW.ClrRGB[i][0]==255 & PQFlDtRW.ClrRGB[i][1]==255 & PQFlDtRW.ClrRGB[i][2]==255)
+                break M0;
+            for (j=0; j<Ncvet; j++) {
+                if (cvet[j][0]==PQFlDtRW.ClrRGB[i][0] & cvet[j][1]==PQFlDtRW.ClrRGB[i][1] & cvet[j][2]==PQFlDtRW.ClrRGB[i][2])
                     break M0;
-                for (j=0; j<Ncvet; j++) {
-                    if (cvet[j][0]==PQFlDtRW.ClrRGB[i][0] & cvet[j][1]==PQFlDtRW.ClrRGB[i][1] & cvet[j][2]==PQFlDtRW.ClrRGB[i][2])
-                        break M0;
-                }
-                for (j=0; j<3; j++)
-                    cvet[Ncvet][j] = PQFlDtRW.ClrRGB[i][j];
-                Ncvet++;
             }
+            for (j=0; j<3; j++)
+                cvet[Ncvet][j] = PQFlDtRW.ClrRGB[i][j];
+            Ncvet++;
+        }
         for (i=0; i<Ncvet; i++)
             WrtEPSFile.EPSFileColors (i, cvet[i][0], cvet[i][1], cvet[i][2]);
         WrtEPSFile.EPSFileObjects ();

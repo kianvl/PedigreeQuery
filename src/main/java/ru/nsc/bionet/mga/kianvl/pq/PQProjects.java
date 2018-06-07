@@ -235,7 +235,7 @@ class PQProjects extends JFrame {
     }
 
 
-    public PQProjects(final String ProjectName) {
+    PQProjects(final String ProjectName) {
         super("Project - " + ProjectName);
         WindowListener wL = new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -326,20 +326,20 @@ class PQProjects extends JFrame {
                     }
                 }
                 if (me.getButton() == 3)
-                    M0:{
-                        if (meX<280 & meX>500)
-                            break M0;
-                        if (meY>105 & meY<125)
-                            PQPrjctRmvFNs(16);
-                        if (meY>180 & meY<200)
-                            PQPrjctRmvFNs(17);
-                        if (meY>230 & meY<250)
-                            PQPrjctRmvFNs(18);
-                        for (i=0; i<16; i++) {
-                            if (meY>280+i*30 & meY<300+i*30)
-                                PQPrjctRmvFNs(i);
-                        }
+                M0:{
+                    if (meX>280 & meX<500)
+                        break M0;
+                    if (meY>105 & meY<125)
+                        PQPrjctRmvFNs(16);
+                    if (meY>180 & meY<200)
+                        PQPrjctRmvFNs(17);
+                    if (meY>230 & meY<250)
+                        PQPrjctRmvFNs(18);
+                    for (i=0; i<16; i++) {
+                        if (meY>280+i*30 & meY<300+i*30)
+                            PQPrjctRmvFNs(i);
                     }
+                }
             }
         });
     }

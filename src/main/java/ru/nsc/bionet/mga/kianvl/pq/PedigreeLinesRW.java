@@ -22,7 +22,7 @@ class PedigreeLinesRW {
     int PrOfLnArc[][];
 
 
-    private void ArrayData() {
+    void ArrayData() {
         int i, j;
 
         PrntXY = new int[AmntFml][][];

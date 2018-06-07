@@ -108,7 +108,7 @@ class PQSetColor extends JFrame {
         return true;
     }
 
-    public PQSetColor (String ProjectName) {
+    PQSetColor (String ProjectName) {
         super("Set colors for project - " + ProjectName);
         WindowListener wL = new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -148,14 +148,14 @@ class PQSetColor extends JFrame {
             SClr[0] = PQPrjctDt.PQPrjctDt[1][1];
             AmntClr = 1;
             for (i=2; i<PQPrjctDt.Nstr; i++)
-                M0:{
-                    for (j=0; j<AmntClr; j++) {
-                        if (SClr[j].equals(PQPrjctDt.PQPrjctDt[i][1]))
-                            break M0;
-                    }
-                    SClr[AmntClr] = PQPrjctDt.PQPrjctDt[i][1];
-                    AmntClr++;
+            M0:{
+                for (j=0; j<AmntClr; j++) {
+                    if (SClr[j].equals(PQPrjctDt.PQPrjctDt[i][1]))
+                        break M0;
                 }
+                SClr[AmntClr] = PQPrjctDt.PQPrjctDt[i][1];
+                AmntClr++;
+            }
             ClrCds = new int[AmntClr][];
             for (i=0; i<AmntClr; i++) {
                 ClrCds[i] = new int[3];
@@ -169,8 +169,7 @@ class PQSetColor extends JFrame {
                 JOptionPane.showMessageDialog(PQPrjct, "" + e);
             }
         }
-        else
-        {
+        else {
             try {
                 RWData('r');
             }
