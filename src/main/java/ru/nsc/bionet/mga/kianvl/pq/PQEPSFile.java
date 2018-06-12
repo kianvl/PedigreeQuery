@@ -18,14 +18,14 @@ class PQEPSFile {
     private int AS2;
     private int SSD; //SS + SD
     private int SS2; //SS/2;
-    private int AmntPrsn;
+    private int amntPrsn;
     private int PrsnXY[][];
     private int PrsnID[];
     private boolean bNxt[];
     private int DimX, DimY;
 
 
-    void PQEPSFile (File EPSFile, String FilePrsnXYName, String PdgrLnsFileName) throws Exception {
+    PQEPSFile (File EPSFile, String FilePrsnXYName, String PdgrLnsFileName) throws Exception {
         PersonXYRW PrsnXYRW = new PersonXYRW();
         PrsnXYRW.RWData (FilePrsnXYName, 'r');
         RWData ('r');
@@ -35,12 +35,13 @@ class PQEPSFile {
         int PdgrMxX, PdgrMxY;
         int GnrtLvl[];
 
-        AmntPrsn = PrsnXYRW.AmntPrsn;
-        PrsnXY = new int[AmntPrsn][];
-        for (i=0; i<AmntPrsn; i++)
+//        amntPrsn = PrsnXYRW.getAmntPrsn();
+        amntPrsn = PrsnXYRW.AmntPrsn;
+        PrsnXY = new int[amntPrsn][];
+        for (i=0; i<amntPrsn; i++)
             PrsnXY[i] = new int[2];
-        PrsnID = new int[AmntPrsn];
-        bNxt = new boolean[AmntPrsn];
+        PrsnID = new int[amntPrsn];
+        bNxt = new boolean[amntPrsn];
 
         SSD = SS + SD;
         SS2 = SS / 2;
@@ -52,7 +53,7 @@ class PQEPSFile {
         PQFlDtRW.RWData ("temp/FullData.tmp", 'r');
 
         PdgrMxX = PdgrMxY = 0;
-        for (i=0; i<AmntPrsn; i++) {
+        for (i=0; i<amntPrsn; i++) {
             if (PrsnXYRW.iX[i] > PdgrMxX)
                 PdgrMxX = PrsnXYRW.iX[i];
             if (PrsnXYRW.iY[i] > PdgrMxY)
@@ -124,11 +125,9 @@ class PQEPSFile {
         WrtEPSFile.EPSFileObjects ();
         WrtEPSFile.EPSLineWidth (0.5);
 
-        String s;
-
         k = 0;
         //Индивидуальные символы
-        for (i=0; i<AmntPrsn; i++) {
+        for (i=0; i<amntPrsn; i++) {
             PrsnXY[i][0] = PrsnXYRW.iX[i] * SSD;
             PrsnXY[i][1] = GnrtLvl[PrsnXYRW.iY[i]];
             PrsnID[i] = PrsnXYRW.PrsnID[i];
@@ -143,7 +142,8 @@ class PQEPSFile {
                     k = j;
                 }
             }
-            // Квадратик
+
+            // Draw a man
             if (PrsnXYRW.SexID[i] == 1) {
                 if (m != -1) {
                     WrtEPSFile.EPSLineStart (PrsnXY[i][0], DimY-PrsnXY[i][1]);
@@ -158,6 +158,7 @@ class PQEPSFile {
                 WrtEPSFile.EPSLineTo (PrsnXY[i][0], DimY-PrsnXY[i][1]-SS);
                 WrtEPSFile.EPSLineEnd (0, 1, 0);
             }
+            // Draw a woman
             else {
                 if (m != -1)
                     WrtEPSFile.EPSFileArc (1, PrsnXY[i][0]+SS2, DimY-PrsnXY[i][1]-SS2, SS2, SS2, 0, 360, 1, m);
@@ -341,19 +342,12 @@ class PQEPSFile {
     }
 
     private void RWData(char rw) throws Exception {
-        int i;
         if (rw!='r' & rw!='w') return;
+
         RandomAccessFile PQSizeFile = new RandomAccessFile("PQSize.ini", "rw");
-        if (rw == 'r')
-            M0:{
-                if (PQSizeFile.length() == 0) {
-                    rw = 'w';
-                    break M0;
-                }
-            }
-        else
-            PQSizeFile.setLength(0);
-        if (rw == 'r') {
+
+        if (rw == 'r' & PQSizeFile.length() != 0)
+        {
             SS = PQSizeFile.readInt();
             SD = PQSizeFile.readInt();
             SP = PQSizeFile.readInt();
@@ -362,7 +356,9 @@ class PQEPSFile {
             LD = PQSizeFile.readInt();
             AS = PQSizeFile.readInt();
         }
-        else {
+        else
+        {
+            PQSizeFile.setLength(0);
             PQSizeFile.writeInt(SS);
             PQSizeFile.writeInt(SD);
             PQSizeFile.writeInt(SP);

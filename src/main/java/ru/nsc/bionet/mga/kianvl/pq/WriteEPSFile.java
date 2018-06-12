@@ -11,148 +11,91 @@ import java.io.FileWriter;
 // 2) Одностраничность.
 class WriteEPSFile  {
     private FileWriter EPSFile;
-    private String s;
 
     // Инициализация EPS-файла.
     // NameEPSFile - название EPS-файла
     // X - размер картинки по горизонтали
     // Y - размер картинки по вертикали
     void EPSFileInitilize (String NameEPSFile, int X, int Y) throws Exception {
-        NameEPSFile = "" + NameEPSFile + ".eps";
-        EPSFile = new FileWriter (NameEPSFile);
-//		s = "%";
-//		EPSFile.write (s);
-        s = "%%!PS-Adobe-3.0 EPSF-3.0\n";
-        EPSFile.write (s);
-        s = "%%BoundingBox: 0 0 " + X + " " + Y + "\n";
-        EPSFile.write (s);
-        s = "/$F2psDict 200 dict def\n";
-        EPSFile.write (s);
-        s = "$F2psDict begin\n";
-        EPSFile.write (s);
-        s = "$F2psDict\n";
-        EPSFile.write (s);
-        s = "/mtrx matrix put\n";
-        EPSFile.write (s);
+        EPSFile = new FileWriter (NameEPSFile + ".eps");
+//		EPSFile.write ("%");
+        EPSFile.write ("%%!PS-Adobe-3.0 EPSF-3.0\n");
+        EPSFile.write ("%%BoundingBox: 0 0 " + X + " " + Y + "\n");
+        EPSFile.write ("/$F2psDict 200 dict def\n");
+        EPSFile.write ("$F2psDict begin\n");
+        EPSFile.write ("$F2psDict\n");
+        EPSFile.write ("/mtrx matrix put\n");
     }
 
     // Создание цветовой гаммы.
     // Cl - номер цвета. Задается пользователем.
     void EPSFileColors (int Cl, int R, int G, int B) throws Exception {
-        s = "/col" + Cl + " {" + (double)R/255.0 + " " + (double)G/255.0 + " " + (double)B/255.0 + " srgb} bind def\n";
-        EPSFile.write (s);
+        EPSFile.write ("/col" + Cl + " {" + (double)R/255.0 + " " + (double)G/255.0 + " " + (double)B/255.0 + " srgb} bind def\n");
     }
 
     // Создание основных объектов. Минимальный набор.
     void EPSFileObjects () throws Exception {
-        s = "/cp {closepath} bind def\n";
-        EPSFile.write (s);
-        s = "/ef {eofill} bind def\n";
-        EPSFile.write (s);
-        s = "/gr {grestore} bind def\n";
-        EPSFile.write (s);
-        s = "/gs {gsave} bind def\n";
-        EPSFile.write (s);
-        s = "/l {lineto} bind def\n";
-        EPSFile.write (s);
-        s = "/m {moveto} bind def\n";
-        EPSFile.write (s);
-        s = "/n {newpath} bind def\n";
-        EPSFile.write (s);
-        s = "/s {stroke} bind def\n";
-        EPSFile.write (s);
-        s = "/slw {setlinewidth} bind def\n";
-        EPSFile.write (s);
-        s = "/srgb {setrgbcolor} bind def\n";
-        EPSFile.write (s);
-        s = "/rot {rotate} bind def\n";
-        EPSFile.write (s);
-        s = "/sc {scale} bind def\n";
-        EPSFile.write (s);
-        s = "/tr {translate} bind def\n\n";
-        EPSFile.write (s);
-        s = "/DrawCircle {\n";
-        EPSFile.write (s);
-        s = "    /endangle exch def\n";
-        EPSFile.write (s);
-        s = "    /startangle exch def\n";
-        EPSFile.write (s);
-        s = "    /yrad exch def\n";
-        EPSFile.write (s);
-        s = "    /xrad exch def\n";
-        EPSFile.write (s);
-        s = "    /y exch def\n";
-        EPSFile.write (s);
-        s = "    /x exch def\n";
-        EPSFile.write (s);
-        s = "    /savematrix mtrx currentmatrix def\n";
-        EPSFile.write (s);
-        s = "    x y tr xrad yrad sc 0 0 1 startangle endangle arc\n";
-        EPSFile.write (s);
-        s = "    closepath\n";
-        EPSFile.write (s);
-        s = "    savematrix setmatrix\n";
-        EPSFile.write (s);
-        s = "    } def\n\n";
-        EPSFile.write (s);
-        s = "/DrawRing {\n";
-        EPSFile.write (s);
-        s = "    /endangle exch def\n";
-        EPSFile.write (s);
-        s = "    /startangle exch def\n";
-        EPSFile.write (s);
-        s = "    /yrad exch def\n";
-        EPSFile.write (s);
-        s = "    /xrad exch def\n";
-        EPSFile.write (s);
-        s = "    /y exch def\n";
-        EPSFile.write (s);
-        s = "    /x exch def\n";
-        EPSFile.write (s);
-        s = "    /savematrix mtrx currentmatrix def\n";
-        EPSFile.write (s);
-        s = "    x y tr xrad yrad sc 0 0 1 startangle endangle arc\n";
-        EPSFile.write (s);
-        s = "    savematrix setmatrix\n";
-        EPSFile.write (s);
-        s = "    } def\n\n";
-        EPSFile.write (s);
-        s = "/ff {findfont} bind def\n";
-        EPSFile.write (s);
-        s = "/scf {scalefont} bind def\n";
-        EPSFile.write (s);
-        s = "/sf {setfont} bind def\n";
-        EPSFile.write (s);
-        s = "/sh {show} bind def\n\n";
-        EPSFile.write (s);
-        s = "/gr {grestore} bind def\n";
-        EPSFile.write (s);
-        s = "/$F2psBegin {$F2psDict begin /$F2psEnteredState save def} def\n";
-        EPSFile.write (s);
-        s = "/$F2psEnd {$F2psEnteredState restore end} def\n\n";
-        EPSFile.write (s);
-        s = "$F2psBegin\n";
-        EPSFile.write (s);
+        EPSFile.write ("/cp {closepath} bind def\n");
+        EPSFile.write ("/ef {eofill} bind def\n");
+        EPSFile.write ("/gr {grestore} bind def\n");
+        EPSFile.write ("/gs {gsave} bind def\n");
+        EPSFile.write ("/l {lineto} bind def\n");
+        EPSFile.write ("/m {moveto} bind def\n");
+        EPSFile.write ("/n {newpath} bind def\n");
+        EPSFile.write ("/s {stroke} bind def\n");
+        EPSFile.write ("/slw {setlinewidth} bind def\n");
+        EPSFile.write ("/srgb {setrgbcolor} bind def\n");
+        EPSFile.write ("/rot {rotate} bind def\n");
+        EPSFile.write ("/sc {scale} bind def\n");
+        EPSFile.write ("/tr {translate} bind def\n\n");
+        EPSFile.write ("/DrawCircle {\n");
+        EPSFile.write ("    /endangle exch def\n");
+        EPSFile.write ("    /startangle exch def\n");
+        EPSFile.write ("    /yrad exch def\n");
+        EPSFile.write ("    /xrad exch def\n");
+        EPSFile.write ("    /y exch def\n");
+        EPSFile.write ("    /x exch def\n");
+        EPSFile.write ("    /savematrix mtrx currentmatrix def\n");
+        EPSFile.write ("    x y tr xrad yrad sc 0 0 1 startangle endangle arc\n");
+        EPSFile.write ("    closepath\n");
+        EPSFile.write ("    savematrix setmatrix\n");
+        EPSFile.write ("    } def\n\n");
+        EPSFile.write ("/DrawRing {\n");
+        EPSFile.write ("    /endangle exch def\n");
+        EPSFile.write ("    /startangle exch def\n");
+        EPSFile.write ("    /yrad exch def\n");
+        EPSFile.write ("    /xrad exch def\n");
+        EPSFile.write ("    /y exch def\n");
+        EPSFile.write ("    /x exch def\n");
+        EPSFile.write ("    /savematrix mtrx currentmatrix def\n");
+        EPSFile.write ("    x y tr xrad yrad sc 0 0 1 startangle endangle arc\n");
+        EPSFile.write ("    savematrix setmatrix\n");
+        EPSFile.write ("    } def\n\n");
+        EPSFile.write ("/ff {findfont} bind def\n");
+        EPSFile.write ("/scf {scalefont} bind def\n");
+        EPSFile.write ("/sf {setfont} bind def\n");
+        EPSFile.write ("/sh {show} bind def\n\n");
+        EPSFile.write ("/gr {grestore} bind def\n");
+        EPSFile.write ("/$F2psBegin {$F2psDict begin /$F2psEnteredState save def} def\n");
+        EPSFile.write ("/$F2psEnd {$F2psEnteredState restore end} def\n\n");
+        EPSFile.write ("$F2psBegin\n");
     }
 
     // Задание толщины линии
     void EPSLineWidth (double Width) throws Exception {
-        s = "" + Width + " slw\n";
-        EPSFile.write (s);
+        EPSFile.write (Width + " slw\n");
     }
 
     // Задание точки начала линии.
     // Y - координата по вертикали, X - координата по горизонтали.
     void EPSLineStart (int X, int Y) throws Exception {
-        s = "n " + X + " " + Y + " m ";
-        EPSFile.write (s);
+        EPSFile.write ("n " + X + " " + Y + " m ");
     }
 
     // Продолжение линии.
     // Y - координата по вертикали, X - координата по горизонтали.
     void EPSLineTo (int X, int Y) throws Exception {
-        s = "" + X + " " + Y + " l ";
-        EPSFile.write (s);
+        EPSFile.write (X + " " + Y + " l ");
     }
 
     // Окончание линии.
@@ -160,18 +103,12 @@ class WriteEPSFile  {
     // CP - замкнутая линия.
     // EF - заполнение фигуры.
     void EPSLineEnd (int Cl, int CP, int EF) throws Exception {
-        if (CP == 1) {
-            s = "cp ";
-            EPSFile.write (s);
-        }
-        s = "gs col" + Cl + " ";
-        EPSFile.write (s);
-        if (EF == 1) {
-            s = "ef ";
-            EPSFile.write (s);
-        }
-        s = "s gr\n";
-        EPSFile.write (s);
+        if (CP == 1)
+            EPSFile.write ("cp ");
+        EPSFile.write ("gs col" + Cl + " ");
+        if (EF == 1)
+            EPSFile.write ("ef ");
+        EPSFile.write ("s gr\n");
     }
 
     // Дуга, окружность, сегмент, круг.
@@ -180,25 +117,16 @@ class WriteEPSFile  {
     // W, H - ширина и высота окружности.
     // S, E - углы начала и конца дуги.
     // EF - заполнение фигуры цветом Cl.
-    void EPSFileArc (int RC, int X, int Y, int W, int H, int S, int E, int EF, int Cl)  throws Exception {
-        s = "n " + X + " " + Y + " " + W + " " + H + " " + S + " " + E + " ";
-        EPSFile.write (s);
-        if (RC == 0) {
-            s = "DrawRing ";
-            EPSFile.write (s);
-        }
-        if (RC == 1) {
-            s = "DrawCircle ";
-            EPSFile.write (s);
-        }
-        s = "gs col" + Cl + " ";
-        EPSFile.write (s);
-        if (EF == 1) {
-            s = "ef ";
-            EPSFile.write (s);
-        }
-        s = "s gr\n";
-        EPSFile.write (s);
+    void EPSFileArc (int RC, int X, int Y, int W, int H, int S, int E, int EF, int Cl) throws Exception {
+        EPSFile.write ("n " + X + " " + Y + " " + W + " " + H + " " + S + " " + E + " ");
+        if (RC == 0)
+            EPSFile.write ("DrawRing ");
+        if (RC == 1)
+            EPSFile.write ("DrawCircle ");
+        EPSFile.write ("gs col" + Cl + " ");
+        if (EF == 1)
+            EPSFile.write ("ef ");
+        EPSFile.write ("s gr\n");
     }
 
     // Текст.
@@ -209,15 +137,13 @@ class WriteEPSFile  {
     // S - текст.
     // Cl - цвет текста.
     void EPSFileText (int Sz, int X, int Y, int W, int H, int R, String S,  int Cl) throws Exception {
-        s = "/Times-Roman ff " + Sz + " scf sf " + X + " " + Y + " m gs " + W + " " + H + " sc " + R + " rot (" + S + ") col" + Cl + " sh gr\n";
-//		s = "/SansSerif ff " + Sz + " scf sf " + X + " " + Y + " m gs " + W + " " + H + " sc " + R + " rot (" + S + ") col" + Cl + " sh gr\n";
-        EPSFile.write (s);
+        EPSFile.write ("/Times-Roman ff " + Sz + " scf sf " + X + " " + Y + " m gs " + W + " " + H + " sc " + R + " rot (" + S + ") col" + Cl + " sh gr\n");
+//        EPSFile.write ("/SansSerif ff " + Sz + " scf sf " + X + " " + Y + " m gs " + W + " " + H + " sc " + R + " rot (" + S + ") col" + Cl + " sh gr\n");
     }
 
     // Закрытие файла.
     void EPSFileClose () throws Exception {
-        String s = "$F2psEnd\n";
-        EPSFile.write (s);
+        EPSFile.write ("$F2psEnd\n");
         EPSFile.close();
     }
 }

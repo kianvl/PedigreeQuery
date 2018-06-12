@@ -52,9 +52,8 @@ class PQMenuHandler implements ActionListener {
             }
 
             // запись картинки фрагмента родословной
-            PQEPSFile PQepsfile = new PQEPSFile ();
             try {
-                PQepsfile.PQEPSFile (fc.getSelectedFile(), "temp/PrsnsXY.tmp", "temp/LinesXY.tmp");
+                PQEPSFile PQepsfile = new PQEPSFile (fc.getSelectedFile(), "temp/PrsnsXY.tmp", "temp/LinesXY.tmp");
             }
             catch (Exception e) {
                 JOptionPane.showMessageDialog(menus, "" + e);
