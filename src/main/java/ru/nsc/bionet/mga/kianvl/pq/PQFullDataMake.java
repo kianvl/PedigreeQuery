@@ -12,7 +12,7 @@ class PQFullDataMake {
 
         int i, j, k, l;
         String PdgrDtNm = "";
-        int IDC=0, FthC=0, MthC=0, SexC=0;
+        int IDC=0, FthC=0, MthC=0, sexC=0;
         String DcsdDtNm = "";
         int DIDC=0, DDtC=0;
         String SCDtNm = "";
@@ -26,7 +26,7 @@ class PQFullDataMake {
         IDC = PQPrjctFile.readInt();
         FthC = PQPrjctFile.readInt();
         MthC = PQPrjctFile.readInt();
-        SexC = PQPrjctFile.readInt();
+        sexC = PQPrjctFile.readInt();
 
         DcsdDtNm = PQPrjctFile.readUTF();
         DIDC = PQPrjctFile.readInt();
@@ -46,7 +46,7 @@ class PQFullDataMake {
 
         //Чтение данных о родственных связях
         //Проверка настроек
-        if (PdgrDtNm.equals("") | IDC==0 | FthC==0 | MthC==0 | SexC==0) {
+        if (PdgrDtNm.equals("") | IDC==0 | FthC==0 | MthC==0 | sexC==0) {
             JOptionPane.showMessageDialog (PrntFrame, "Data on pedigree are not configured!");
             return false;
         }
@@ -55,7 +55,7 @@ class PQFullDataMake {
         PQPrjctDt.ClmnIDs[0] = IDC;
         PQPrjctDt.ClmnIDs[1] = FthC;
         PQPrjctDt.ClmnIDs[2] = MthC;
-        PQPrjctDt.ClmnIDs[3] = SexC;
+        PQPrjctDt.ClmnIDs[3] = sexC;
 
         try {
             PQPrjctDt.ReadData("Projects/" + ProjectName + "/" + PdgrDtNm);
@@ -116,7 +116,7 @@ class PQFullDataMake {
             }
         }
 
-        int iSxID[] = new int[2];
+        byte iSxID[] = new byte[2];
 
         //Идентификация шифра пола
         if ((SxID[0].equalsIgnoreCase("male") & SxID[1].equalsIgnoreCase("female")) | (SxID[0].equalsIgnoreCase("female") & SxID[1].equalsIgnoreCase("male"))) {
@@ -240,9 +240,9 @@ class PQFullDataMake {
         for (i=0; i<PQFlDtRW.AmntPrsn; i++) {
             PQFlDtRW.PrsnID[i] = PQPrjctDt.PQPrjctDt[i+1][0];
             if (PQPrjctDt.PQPrjctDt[i+1][3].equals(SxID[0]))
-                PQFlDtRW.SexID[i]=iSxID[0];
+                PQFlDtRW.SexID[i] = iSxID[0];
             else
-                PQFlDtRW.SexID[i]=iSxID[1];
+                PQFlDtRW.SexID[i] = iSxID[1];
         }
 
         //Проверка шифра пола и наличия всех родителей
@@ -275,7 +275,7 @@ class PQFullDataMake {
         boolean b;
         b = false;
         do {
-            ProbandID = (String)JOptionPane.showInputDialog(PrntFrame, "Please enter proband ID");
+            ProbandID = JOptionPane.showInputDialog(PrntFrame, "Please enter proband ID");
             M1:{
                 for (i=0; i<PQFlDtRW.AmntPrsn; i++) {
                     if (PQFlDtRW.PrsnID[i].equals(ProbandID)) {
@@ -296,33 +296,33 @@ class PQFullDataMake {
 
         PedigreeData PdgrData = new PedigreeData();
 
-        PdgrData.AmntPrsns = 1;
-        for (i=0; i<PdgrData.AmntPrsns; i++) {
+        PdgrData.setAmntPrsns(1);
+        for (i=0; i<PdgrData.getAmntPrsns(); i++) {
             k = PrsnPdgr[i];
             for (j=0; j<PQFlDtRW.AmntPrsn; j++) {
                 if (PQFlDtRW.PrntID[k][PQFlDtRW.SexID[j]-1]==j+1 | PQFlDtRW.PrntID[j][PQFlDtRW.SexID[k]-1]==k+1)
                 M2:{
-                    for (l=0; l<PdgrData.AmntPrsns; l++) {
+                    for (l=0; l<PdgrData.getAmntPrsns(); l++) {
                         if (PrsnPdgr[l] == j)
                             break M2;
                     }
-                    PrsnPdgr[PdgrData.AmntPrsns] = j;
-                    PdgrData.AmntPrsns++;
+                    PrsnPdgr[PdgrData.getAmntPrsns()] = j;
+                    PdgrData.setAmntPrsns(PdgrData.getAmntPrsns()+1);
                 }
             }
         }
 
         PdgrData.ArrayData ();
 
-        for (i=0; i<PdgrData.AmntPrsns; i++) {
-            PdgrData.PrsnID[i] = PQFlDtRW.PrsnID[PrsnPdgr[i]];
-            PdgrData.SexID[i] = PQFlDtRW.SexID[PrsnPdgr[i]];
+        for (i=0; i<PdgrData.getAmntPrsns(); i++) {
+            PdgrData.setPrsnID(i, PQFlDtRW.PrsnID[PrsnPdgr[i]]);
+            PdgrData.setSexID(i, PQFlDtRW.SexID[PrsnPdgr[i]]);
             for (j=0; j<2; j++) {
                 for (k=0; k<PQFlDtRW.AmntPrsn; k++) {
                     if (PQFlDtRW.PrntID[PrsnPdgr[i]][j] == k+1) {
-                        for (l=0; l<PdgrData.AmntPrsns; l++) {
+                        for (l=0; l<PdgrData.getAmntPrsns(); l++) {
                             if (PrsnPdgr[l] == k)
-                                PdgrData.PrntsID[j][i] = l;
+                                PdgrData.setPrntID(j, i, l);
                         }
                     }
                 }

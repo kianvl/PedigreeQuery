@@ -44,7 +44,7 @@ class PersonsGenerations {
 
         // начало работы с индивидуальными поколениями
         PersonXYRW PrsnXYRW = new PersonXYRW();
-        PrsnXYRW.AmntPrsn = PdgrData.AmntPrsns;
+        PrsnXYRW.AmntPrsn = PdgrData.getAmntPrsns();
         PrsnXYRW.ArrayData();
 
         AmntPrsns = 0;
@@ -52,7 +52,7 @@ class PersonsGenerations {
         for (i=0; i<FmlGnrtnData.AmntFml; i++) {
             for (j=0; j<FmlsData.AmntOfsprFml[FmlGnrtnData.FmlID[i]]; j++) {
                 PrsnXYRW.PrsnID[AmntPrsns] = FmlsData.OfsprFml[FmlGnrtnData.FmlID[i]][j];
-                PrsnXYRW.SexID[AmntPrsns] = PdgrData.SexID[PrsnXYRW.PrsnID[AmntPrsns]];
+                PrsnXYRW.SexID[AmntPrsns] = PdgrData.getSexID(PrsnXYRW.PrsnID[AmntPrsns]);
                 PrsnXYRW.iY[AmntPrsns] = FmlGnrtnData.FmlGnrtn[i] + 1;
                 AmntPrsns++;
             }
@@ -69,7 +69,7 @@ class PersonsGenerations {
                     }
                 }
                 PrsnXYRW.PrsnID[AmntPrsns] = FmlsData.PrntFml[j][FmlGnrtnData.FmlID[i]];
-                PrsnXYRW.SexID[AmntPrsns] = PdgrData.SexID[PrsnXYRW.PrsnID[AmntPrsns]];
+                PrsnXYRW.SexID[AmntPrsns] = PdgrData.getSexID(PrsnXYRW.PrsnID[AmntPrsns]);
                 PrsnXYRW.iY[AmntPrsns] = FmlGnrtnData.FmlGnrtn[i];
                 g[j] = AmntPrsns;
                 AmntPrsns++;

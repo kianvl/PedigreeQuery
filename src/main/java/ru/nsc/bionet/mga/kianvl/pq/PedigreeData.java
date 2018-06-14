@@ -1,5 +1,8 @@
-// Author Anatoly V. Kirichenko kianvl@mail.ru
-// License GNU General Public License >= 2
+/**
+ * @author Anatoly Kirichenko
+ * @email kianvl@mail.ru
+ * License GNU General Public License >= 2
+ */
 
 package ru.nsc.bionet.mga.kianvl.pq;
 
@@ -7,20 +10,49 @@ import java.io.RandomAccessFile;
 
 //Чтение и запись бесформатного варианта LINKAGE
 class PedigreeData {
-    // количество индивидов
-    public int AmntPrsns;
+    // Amount of persons in pedigree
+    private int amntPrsns;
     // строковый персональный шифр
-    String PrsnID[];
-    // шифры родителей - как порядковый номер в списке
-    int PrntsID[][] = new int[2][];
+    private String prsnID[];
     // шифр пола
-    int SexID[];
+    private byte sexID[];
+    // шифры родителей - как порядковый номер в списке
+    private int prntID[][] = new int[2][];
+
+    // Interfaces
+    void setAmntPrsns (int amntPrsns) {
+        this.amntPrsns = amntPrsns;
+    }
+    int getAmntPrsns () {
+        return amntPrsns;
+    }
+
+    void setPrsnID (int i, String prsnID) {
+        this.prsnID[i] = prsnID;
+    }
+    String getPrsnID (int i) {
+        return prsnID[i];
+    }
+
+    void setSexID (int i, byte sexID) {
+        this.sexID[i] = sexID;
+    }
+    byte getSexID (int i) {
+        return sexID[i];
+    }
+
+    void setPrntID (int fm, int i, int prntID) {
+        this.prntID[fm][i] = prntID;
+    }
+    int getPrntID (int fm, int i) {
+        return prntID[fm][i];
+    }
 
     void ArrayData() {
-        PrsnID = new String[AmntPrsns];
-        PrntsID[0] = new int[AmntPrsns];
-        PrntsID[1] = new int[AmntPrsns];
-        SexID = new int[AmntPrsns];
+        prsnID = new String[amntPrsns];
+        sexID = new byte[amntPrsns];
+        prntID[0] = new int[amntPrsns];
+        prntID[1] = new int[amntPrsns];
     }
 
     void RWData (String PGFileName, char rw) throws Exception {
@@ -31,26 +63,26 @@ class PedigreeData {
         RandomAccessFile PGFile = new RandomAccessFile(PGFileName, "rw");
 
         if (rw == 'r') {
-            AmntPrsns = PGFile.readInt();
+            amntPrsns = PGFile.readInt();
             ArrayData();
         }
         else {
             PGFile.setLength(0);
-            PGFile.writeInt(AmntPrsns);
+            PGFile.writeInt(amntPrsns);
         }
 
-        for (i=0; i<AmntPrsns; i++) {
+        for (i=0; i<amntPrsns; i++) {
             if (rw == 'r') {
-                PrsnID[i] = PGFile.readUTF();
-                PrntsID[0][i] = PGFile.readInt();
-                PrntsID[1][i] = PGFile.readInt();
-                SexID[i] = PGFile.readInt();
+                prsnID[i] = PGFile.readUTF();
+                sexID[i] = PGFile.readByte();
+                prntID[0][i] = PGFile.readInt();
+                prntID[1][i] = PGFile.readInt();
             }
             else {
-                PGFile.writeUTF(PrsnID[i]);
-                PGFile.writeInt(PrntsID[0][i]);
-                PGFile.writeInt(PrntsID[1][i]);
-                PGFile.writeInt(SexID[i]);
+                PGFile.writeUTF(prsnID[i]);
+                PGFile.writeByte(sexID[i]);
+                PGFile.writeInt(prntID[0][i]);
+                PGFile.writeInt(prntID[1][i]);
             }
         }
 

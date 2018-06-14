@@ -123,7 +123,7 @@ class PedigreeQuerySteps {
                                         JOptionPane.showMessageDialog(ParentFrame, "" + e);
                                         return;
                                     }
-                                    sz = PdgrData.PrsnID[DrPdgr.PrsnID[i]];
+                                    sz = PdgrData.getPrsnID(DrPdgr.PrsnID[i]);
                                     DoStep(-1);
                                     JOptionPane.showMessageDialog(ParentFrame, "Undrawable pedigree structure!");
                                     JOptionPane.showMessageDialog(ParentFrame, "The ID of the last reqwest person is \"" + sz + "\".\nTry to run the project from this person.");

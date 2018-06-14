@@ -16,7 +16,7 @@ class PQFullDataRW {
     String PrntIDNm[] = new String[2];
     int PrntID[][];
     String SexIDNm;
-    int SexID[];
+    byte SexID[];
     private String CrsLnNm;
     boolean CrsLn[];
     int ClrRGB[][];
@@ -41,7 +41,7 @@ class PQFullDataRW {
             PrntIDNm[i] = "";
         PrntID = new int[AmntPrsn][];
         SexIDNm = "";
-        SexID = new int[AmntPrsn];
+        SexID = new byte[AmntPrsn];
         CrsLnNm = "";
         CrsLn = new boolean[AmntPrsn];
         ClrRGB = new int[AmntPrsn][];
@@ -109,7 +109,7 @@ class PQFullDataRW {
                 PrsnID[i] = PXYFile.readUTF();
                 for (j=0; j<2; j++)
                     PrntID[i][j] = PXYFile.readInt();
-                SexID[i] = PXYFile.readInt();
+                SexID[i] = PXYFile.readByte();
                 CrsLn[i] = PXYFile.readBoolean();
                 for (j=0; j<3; j++)
                     ClrRGB[i][j] = PXYFile.readInt();
@@ -120,7 +120,7 @@ class PQFullDataRW {
                 PXYFile.writeUTF(PrsnID[i]);
                 for (j=0; j<2; j++)
                     PXYFile.writeInt(PrntID[i][j]);
-                PXYFile.writeInt(SexID[i]);
+                PXYFile.writeByte(SexID[i]);
                 PXYFile.writeBoolean(CrsLn[i]);
                 for (j=0; j<3; j++)
                     PXYFile.writeInt(ClrRGB[i][j]);

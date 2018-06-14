@@ -134,7 +134,7 @@ class PQEPSFile {
             bNxt[i] = PrsnXYRW.bNxt[i];
             m = -1;
             for (j=0; j<PQFlDtRW.AmntPrsn; j++) {
-                if (PdgrData.PrsnID[PrsnID[i]].equals(PQFlDtRW.PrsnID[j])) {
+                if (PdgrData.getPrsnID(PrsnID[i]).equals(PQFlDtRW.PrsnID[j])) {
                     for (l=0; l<Ncvet; l++) {
                         if (cvet[l][0]==PQFlDtRW.ClrRGB[j][0] & cvet[l][1]==PQFlDtRW.ClrRGB[j][1] & cvet[l][2]==PQFlDtRW.ClrRGB[j][2])
                             m = l;
@@ -165,7 +165,7 @@ class PQEPSFile {
                 WrtEPSFile.EPSFileArc (1, PrsnXY[i][0]+SS2, DimY-PrsnXY[i][1]-SS2, SS2, SS2, 0, 360, 0, 0);
             }
             for (j=0; j<PQFlDtRW.AmntPrsn; j++) {
-                if (PdgrData.PrsnID[PrsnID[i]].equals(PQFlDtRW.PrsnID[j])) {
+                if (PdgrData.getPrsnID(PrsnID[i]).equals(PQFlDtRW.PrsnID[j])) {
                     if (PQFlDtRW.CrsLn[j]) {
                         WrtEPSFile.EPSLineStart (PrsnXY[i][0]+SS+2, DimY-PrsnXY[i][1]+2);
                         WrtEPSFile.EPSLineTo (PrsnXY[i][0]-2, DimY-PrsnXY[i][1]-SS-2);

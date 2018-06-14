@@ -208,7 +208,7 @@ class DrawPedigree extends JPanel {
             PrsnID[i] = PrsnXYRW.PrsnID[i];
             bNxt[i] = PrsnXYRW.bNxt[i];
             for (j=0; j<PQFlDtRW.AmntPrsn; j++) {
-                if (PdgrData.PrsnID[PrsnID[i]].equals(PQFlDtRW.PrsnID[j])) {
+                if (PdgrData.getPrsnID(PrsnID[i]).equals(PQFlDtRW.PrsnID[j])) {
                     cvet0 = new Color(PQFlDtRW.ClrRGB[j][0], PQFlDtRW.ClrRGB[j][1], PQFlDtRW.ClrRGB[j][2]);
                     k = j;
                 }
@@ -231,7 +231,7 @@ class DrawPedigree extends JPanel {
             }
             g.setColor(Color.black);
             for (j=0; j<PQFlDtRW.AmntPrsn; j++) {
-                if (PdgrData.PrsnID[PrsnID[i]].equals(PQFlDtRW.PrsnID[j])) {
+                if (PdgrData.getPrsnID(PrsnID[i]).equals(PQFlDtRW.PrsnID[j])) {
                     if (PQFlDtRW.CrsLn[j])
                         g.drawLine(PrsnXY[i][0]+SS+2, PrsnXY[i][1]-2, PrsnXY[i][0]-2, PrsnXY[i][1]+SS+2);
                 }

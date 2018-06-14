@@ -11,23 +11,23 @@ import java.io.RandomAccessFile;
 //переход на др строку - 13 (0D)
 //возврат коретки - 10 (0A)
 class PQProjectDataR {
-    public int N, Nstr;
+    int N, Nstr;
     int ClmnIDs[];
     int Ni[];
     private int AmntClmn;
     private long Fl, i;
     public char ch;
     public String Str;
-    public String PQPrjctDt[][];
+    String PQPrjctDt[][];
     private JFrame RKDFrame;
 
-    public PQProjectDataR (JFrame RKDFrame, int AmntClmn) {
+    PQProjectDataR (JFrame RKDFrame, int AmntClmn) {
         this.RKDFrame = RKDFrame;
         this.AmntClmn = AmntClmn;
         ClmnIDs = new int[AmntClmn];
     }
 
-    public void ReadData(String PrjctDtFileName) throws Exception {
+    void ReadData(String PrjctDtFileName) throws Exception {
         String StrBuff;
         int NnC, nR, nC, j, k, ii, jj;
         RandomAccessFile FR = new RandomAccessFile(PrjctDtFileName, "r");

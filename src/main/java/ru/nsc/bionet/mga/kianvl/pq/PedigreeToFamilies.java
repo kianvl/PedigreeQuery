@@ -31,22 +31,22 @@ class PedigreeToFamilies {
 
         FamiliesData FmlData = new FamiliesData();
 
-        FmlData.PrntFml[0] = new int[PdgrData.AmntPrsns];
-        FmlData.PrntFml[1] = new int[PdgrData.AmntPrsns];
-        FmlData.AmntOfsprFml = new int[PdgrData.AmntPrsns];
+        FmlData.PrntFml[0] = new int[PdgrData.getAmntPrsns()];
+        FmlData.PrntFml[1] = new int[PdgrData.getAmntPrsns()];
+        FmlData.AmntOfsprFml = new int[PdgrData.getAmntPrsns()];
 
         FmlData.AmntFml = 0;
-        for (i=0; i<PdgrData.AmntPrsns; i++) {
-            if (PdgrData.PrntsID[0][i]!=0 | PdgrData.PrntsID[1][i]!=0)
+        for (i=0; i<PdgrData.getAmntPrsns(); i++) {
+            if (PdgrData.getPrntID(0, i)!=0 | PdgrData.getPrntID(1, i)!=0)
             M0:{
                 for (j=0; j<FmlData.AmntFml; j++) {
-                    if ((PdgrData.PrntsID[0][i]==FmlData.PrntFml[0][j]) & (PdgrData.PrntsID[1][i]==FmlData.PrntFml[1][j])) {
+                    if ((PdgrData.getPrntID(0, i)==FmlData.PrntFml[0][j]) & (PdgrData.getPrntID(1, i)==FmlData.PrntFml[1][j])) {
                         FmlData.AmntOfsprFml[j]++;
                         break M0;
                     }
                 }
-                FmlData.PrntFml[0][FmlData.AmntFml] = PdgrData.PrntsID[0][i];
-                FmlData.PrntFml[1][FmlData.AmntFml] = PdgrData.PrntsID[1][i];
+                FmlData.PrntFml[0][FmlData.AmntFml] = PdgrData.getPrntID(0, i);
+                FmlData.PrntFml[1][FmlData.AmntFml] = PdgrData.getPrntID(1, i);
                 FmlData.AmntOfsprFml[FmlData.AmntFml] = 1;
                 FmlData.AmntFml++;
             }
@@ -57,8 +57,8 @@ class PedigreeToFamilies {
         for (i=0; i<FmlData.AmntFml; i++) {
             k = 0;
             FmlData.OfsprFml[i] = new int[FmlData.AmntOfsprFml[i]];
-            for (j=0; j<PdgrData.AmntPrsns; j++) {
-                if ((PdgrData.PrntsID[0][j]==FmlData.PrntFml[0][i]) & (PdgrData.PrntsID[1][j]==FmlData.PrntFml[1][i])) {
+            for (j=0; j<PdgrData.getAmntPrsns(); j++) {
+                if ((PdgrData.getPrntID(0, j)==FmlData.PrntFml[0][i]) & (PdgrData.getPrntID(1, j)==FmlData.PrntFml[1][i])) {
                     FmlData.OfsprFml[i][k] = j;
                     k++;
                 }

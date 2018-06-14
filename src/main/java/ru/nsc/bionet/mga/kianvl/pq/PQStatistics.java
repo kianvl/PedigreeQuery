@@ -55,7 +55,7 @@ class PQStatistics extends JFrame {
 //			JOptionPane.showMessageDialog(ParentFrame, "" + e);
             return;
         }
-        NPersons = PdgrData.AmntPrsns;
+        NPersons = PdgrData.getAmntPrsns();
 
         PersonXYRW PrsnXYRW = new PersonXYRW();
         try {

@@ -12,7 +12,7 @@ class PersonXYRW {
     // персональный шифр
     int PrsnID[];
     // шифр пола
-    int SexID[];
+    byte SexID[];
     // координата в линии поколения
     int iX[];
     // поколение
@@ -23,7 +23,7 @@ class PersonXYRW {
 
     void ArrayData()     {
         PrsnID = new int[AmntPrsn];
-        SexID = new int[AmntPrsn];
+        SexID = new byte[AmntPrsn];
         iX = new int[AmntPrsn];
         iY = new int[AmntPrsn];
         bNxt = new boolean[AmntPrsn];
@@ -49,14 +49,14 @@ class PersonXYRW {
         for (i=0; i<AmntPrsn; i++) {
             if (rw == 'r') {
                 PrsnID[i] = PXYFile.readInt();
-                SexID[i] = PXYFile.readInt();
+                SexID[i] = PXYFile.readByte();
                 iX[i] = PXYFile.readInt();
                 iY[i] = PXYFile.readInt();
                 bNxt[i] = PXYFile.readBoolean();
             }
             else {
                 PXYFile.writeInt(PrsnID[i]);
-                PXYFile.writeInt(SexID[i]);
+                PXYFile.writeByte(SexID[i]);
                 PXYFile.writeInt(iX[i]);
                 PXYFile.writeInt(iY[i]);
                 PXYFile.writeBoolean(bNxt[i]);
