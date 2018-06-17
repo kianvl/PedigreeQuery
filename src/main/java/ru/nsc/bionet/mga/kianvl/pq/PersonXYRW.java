@@ -7,26 +7,61 @@ import java.io.RandomAccessFile;
 
 // персональные координаты: поколение и положение в линии поколения
 class PersonXYRW {
-    // количество людей
-    int AmntPrsn;
+    // Amount persons in pedigree
+    private int amntPrsn;
     // персональный шифр
-    int PrsnID[];
+    private int prsnID[];
     // шифр пола
-    byte SexID[];
+    private byte sexID[];
     // координата в линии поколения
-    int iX[];
+    private int iX[];
     // поколение
-    int iY[];
+    private int iY[];
     // является ли пойнтером
     boolean bNxt[];
 
+    // Interfaces
+    public void setAmntPrsn(int amntPrsn) {
+        this.amntPrsn = amntPrsn;
+    }
+    public int getAmntPrsn() {
+        return amntPrsn;
+    }
+
+    public void setPrsnID(int i, int prsnID) {
+        this.prsnID[i] = prsnID;
+    }
+    public int getPrsnID(int i) {
+        return prsnID[i];
+    }
+
+    public void setSexID(int i, byte sexID) {
+        this.sexID[i] = sexID;
+    }
+    public byte getSexID(int i) {
+        return sexID[i];
+    }
+
+    public void setiX(int i, int iX) {
+        this.iX[i] = iX;
+    }
+    public int getiX(int i) {
+        return iX[i];
+    }
+
+    public void setiY(int i, int iY) {
+        this.iY[i] = iY;
+    }
+    public int getiY(int i) {
+        return iY[i];
+    }
 
     void ArrayData()     {
-        PrsnID = new int[AmntPrsn];
-        SexID = new byte[AmntPrsn];
-        iX = new int[AmntPrsn];
-        iY = new int[AmntPrsn];
-        bNxt = new boolean[AmntPrsn];
+        prsnID = new int[amntPrsn];
+        sexID = new byte[amntPrsn];
+        iX = new int[amntPrsn];
+        iY = new int[amntPrsn];
+        bNxt = new boolean[amntPrsn];
     }
 
 
@@ -38,25 +73,25 @@ class PersonXYRW {
         RandomAccessFile PXYFile = new RandomAccessFile(PXYFileName, "rw");
 
         if (rw == 'r') {
-            AmntPrsn = PXYFile.readInt();
+            amntPrsn = PXYFile.readInt();
             ArrayData();
         }
         else {
             PXYFile.setLength(0);
-            PXYFile.writeInt(AmntPrsn);
+            PXYFile.writeInt(amntPrsn);
         }
 
-        for (i=0; i<AmntPrsn; i++) {
+        for (i=0; i<amntPrsn; i++) {
             if (rw == 'r') {
-                PrsnID[i] = PXYFile.readInt();
-                SexID[i] = PXYFile.readByte();
+                prsnID[i] = PXYFile.readInt();
+                sexID[i] = PXYFile.readByte();
                 iX[i] = PXYFile.readInt();
                 iY[i] = PXYFile.readInt();
                 bNxt[i] = PXYFile.readBoolean();
             }
             else {
-                PXYFile.writeInt(PrsnID[i]);
-                PXYFile.writeByte(SexID[i]);
+                PXYFile.writeInt(prsnID[i]);
+                PXYFile.writeByte(sexID[i]);
                 PXYFile.writeInt(iX[i]);
                 PXYFile.writeInt(iY[i]);
                 PXYFile.writeBoolean(bNxt[i]);

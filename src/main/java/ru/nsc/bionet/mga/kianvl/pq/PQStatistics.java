@@ -65,7 +65,7 @@ class PQStatistics extends JFrame {
 //			JOptionPane.showMessageDialog(ParentFrame, "" + e);
             return;
         }
-        CrntNPrsns = PrsnXYRW.AmntPrsn;
+        CrntNPrsns = PrsnXYRW.getAmntPrsn();
 
         FamiliesData FmlData = new FamiliesData();
         try {

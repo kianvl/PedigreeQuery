@@ -34,18 +34,18 @@ class NewLinkageData {
 
         LinkageDataW LnkgDataW = new LinkageDataW();
 
-        LnkgDataW.AmntPrsns = PrsnXYRW.AmntPrsn;
+        LnkgDataW.AmntPrsns = PrsnXYRW.getAmntPrsn();
 
         LnkgDataW.ArrayData();
-        for (i=0; i<PrsnXYRW.AmntPrsn; i++) {
-            LnkgDataW.PrsnID[i] = PdgrData.getPrsnID(PrsnXYRW.PrsnID[i]);
+        for (i=0; i<PrsnXYRW.getAmntPrsn(); i++) {
+            LnkgDataW.PrsnID[i] = PdgrData.getPrsnID(PrsnXYRW.getPrsnID(i));
             for (j=0; j<2; j++) {
-                if (PdgrData.getPrntID(j, PrsnXYRW.PrsnID[i]) == 0)
+                if (PdgrData.getPrntID(j, PrsnXYRW.getPrsnID(i)) == 0)
                     LnkgDataW.PrntsID[j][i] = "0";
                 else
-                    LnkgDataW.PrntsID[j][i] = PdgrData.getPrsnID(PdgrData.getPrntID(j, PrsnXYRW.PrsnID[i]));
+                    LnkgDataW.PrntsID[j][i] = PdgrData.getPrsnID(PdgrData.getPrntID(j, PrsnXYRW.getPrsnID(i)));
             }
-            if (PdgrData.getSexID(PrsnXYRW.PrsnID[i]) == 1)
+            if (PdgrData.getSexID(PrsnXYRW.getPrsnID(i)) == 1)
                 LnkgDataW.SexID[i] = "male";
             else
                 LnkgDataW.SexID[i] = "female";

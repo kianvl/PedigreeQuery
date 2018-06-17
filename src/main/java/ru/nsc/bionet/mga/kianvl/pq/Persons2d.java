@@ -19,12 +19,12 @@ class Persons2d {
     private boolean PrntsXok[] = new boolean[2];
 
     private boolean PutPrsnX(int PtXPrsnId, int PtXPrsnX) {
-        if (ScaleXY[PtXPrsnX][PrsnXYRW.iY[PtXPrsnId]] > 0) {
+        if (ScaleXY[PtXPrsnX][PrsnXYRW.getiY(PtXPrsnId)] > 0) {
 //			JOptionPane.showMessageDialog(ParentFrame, "Yacheika zanyata!!");
             return false;
         }
-        PrsnXYRW.iX[PtXPrsnId] = PtXPrsnX;
-        ScaleXY[PtXPrsnX][PrsnXYRW.iY[PtXPrsnId]] = PtXPrsnId+1;
+        PrsnXYRW.setiX(PtXPrsnId, PtXPrsnX);
+        ScaleXY[PtXPrsnX][PrsnXYRW.getiY(PtXPrsnId)] = PtXPrsnId+1;
         FrsnXok[PtXPrsnId] = true;
         return true;
     }
@@ -37,9 +37,9 @@ class Persons2d {
         //определены координаты у родителей или нет?
         for (j=0; j<2; j++) {
             PrntsXok[j] = false;
-            for (i=0; i<PrsnXYRW.AmntPrsn; i++)
+            for (i=0; i<PrsnXYRW.getAmntPrsn(); i++)
             M1:{
-                if (PrsnXYRW.PrsnID[i] == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[FamilyID]]) {
+                if (PrsnXYRW.getPrsnID(i) == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[FamilyID]]) {
                     PrntsXok[j] = FrsnXok[i];
                     break M1;
                 }
@@ -49,8 +49,8 @@ class Persons2d {
         //колличество потомков с неопределенными координатами
         PdgrFrOff = 0;
         for (i=0; i<FmlsData.AmntOfsprFml[FmlGnrtnData.FmlID[FamilyID]]; i++) {
-        M2:for (j=0; j<PrsnXYRW.AmntPrsn; j++) {
-            if (PrsnXYRW.PrsnID[j] == FmlsData.OfsprFml[FmlGnrtnData.FmlID[FamilyID]][i]) {
+        M2:for (j=0; j<PrsnXYRW.getAmntPrsn(); j++) {
+            if (PrsnXYRW.getPrsnID(j) == FmlsData.OfsprFml[FmlGnrtnData.FmlID[FamilyID]][i]) {
                 if (!FrsnXok[j])
                     PdgrFrOff++;
                 break M2;
@@ -64,8 +64,8 @@ class Persons2d {
             if (!PrntsXok[0] & !PrntsXok[1]) {
 //				JOptionPane.showMessageDialog(ParentFrame, "Oba roditelya bez X - " + FamilyID);
                 for (j=0; j<2; j++) {
-                    M0:for (i=0; i<PrsnXYRW.AmntPrsn; i++) {
-                        if (PrsnXYRW.PrsnID[i] == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[FamilyID]]) {
+                    M0:for (i=0; i<PrsnXYRW.getAmntPrsn(); i++) {
+                        if (PrsnXYRW.getPrsnID(i) == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[FamilyID]]) {
                             if (j == 0) {
                                 if (!PutPrsnX(i, PdgrEdge+1)) return false;
                             }
@@ -83,11 +83,11 @@ class Persons2d {
                 //Ищем родителя с координатой
                 M3:for (j=0; j<2; j++) {
                     if (PrntsXok[j]) {
-                        for (i=0; i<PrsnXYRW.AmntPrsn; i++) {
-                            if (PrsnXYRW.PrsnID[i] == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[FamilyID]]) {
+                        for (i=0; i<PrsnXYRW.getAmntPrsn(); i++) {
+                            if (PrsnXYRW.getPrsnID(i) == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[FamilyID]]) {
                                 ShiftPdgr(i);
                                 //n - координата этого родителя
-                                n = PrsnXYRW.iX[i];
+                                n = PrsnXYRW.getiX(i);
                                 //является ли он родителем в других ЯС
 /*
 								for (k=0; k<FmlGnrtnData.AmntFml; k++)
@@ -139,8 +139,8 @@ class Persons2d {
                 //Ищем родителя без координаты
                 M4:for (j=0; j<2; j++) {
                     if (!PrntsXok[j]) {
-                        for (i=0; i<PrsnXYRW.AmntPrsn; i++) {
-                            if (PrsnXYRW.PrsnID[i] == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[FamilyID]]) {
+                        for (i=0; i<PrsnXYRW.getAmntPrsn(); i++) {
+                            if (PrsnXYRW.getPrsnID(i) == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[FamilyID]]) {
                                 if (PdgrFrOf == 0) {
                                     if (!PutPrsnX(i, n+2))
                                         return false;
@@ -161,29 +161,25 @@ class Persons2d {
             //Ищем ID родителей
             for (j=0; j<2; j++)
             M5:{
-                for (i=0; i<PrsnXYRW.AmntPrsn; i++) {
-                    if (PrsnXYRW.PrsnID[i] == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[FamilyID]]) {
+                for (i=0; i<PrsnXYRW.getAmntPrsn(); i++) {
+                    if (PrsnXYRW.getPrsnID(i) == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[FamilyID]]) {
                         //nn - ID родителей
                         nn[j] = i;
                         break M5;
                     }
                 }
             }
-            if (PrsnXYRW.iX[nn[0]] < PrsnXYRW.iX[nn[1]]) {
+            if (PrsnXYRW.getiX(nn[0]) < PrsnXYRW.getiX(nn[1])) {
                 PrntsXok[1] = FrsnXok[nn[1]] = false;
-                ScaleXY[PrsnXYRW.iX[nn[1]]][PrsnXYRW.iY[nn[1]]] = 0;
+                ScaleXY[PrsnXYRW.getiX(nn[1])][PrsnXYRW.getiY(nn[1])] = 0;
                 ShiftPdgr(nn[0]);
-                if (!PutPrsnX(nn[1], PrsnXYRW.iX[nn[0]]+2))
-                    return false;
-                return true;
+                return PutPrsnX(nn[1], PrsnXYRW.getiX(nn[0]) + 2);
             }
             else {
                 PrntsXok[0] = FrsnXok[nn[0]] = false;
-                ScaleXY[PrsnXYRW.iX[nn[0]]][PrsnXYRW.iY[nn[0]]] = 0;
+                ScaleXY[PrsnXYRW.getiX(nn[0])][PrsnXYRW.getiY(nn[0])] = 0;
                 ShiftPdgr(nn[1]);
-                if (!PutPrsnX(nn[0], PrsnXYRW.iX[nn[1]]+2))
-                    return false;
-                return true;
+                return PutPrsnX(nn[0], PrsnXYRW.getiX(nn[1]) + 2);
             }
         }
         return true;
@@ -193,10 +189,10 @@ class Persons2d {
     private void ShiftPdgr(int BrkPnt) {
         int i, j, k, l, iBrkPnt, iSt;
         int n=0;
-        int iPrnt[] = new int[2];
+//        int iPrnt[] = new int[2]; // Never used
         boolean bb;
 
-        iBrkPnt = PrsnXYRW.iX[BrkPnt];
+        iBrkPnt = PrsnXYRW.getiX(BrkPnt);
         iSt = PdgrFrOff;
         if (PdgrFrOff < 3)
             iSt = PdgrFrOff+1;
@@ -221,7 +217,7 @@ class Persons2d {
                         for (k=0; k<FmlInWk; k++) {
                             bb = false;
                             M2:for (l=0; l<2; l++) {
-                                if (FmlsData.PrntFml[l][FmlGnrtnData.FmlID[k]] == PrsnXYRW.PrsnID[ScaleXY[i][j]-1]) {
+                                if (FmlsData.PrntFml[l][FmlGnrtnData.FmlID[k]] == PrsnXYRW.getPrsnID(ScaleXY[i][j]-1)) {
                                     if (l==0)
                                         n = 1;
                                     else
@@ -233,14 +229,14 @@ class Persons2d {
                             if (bb) {
                                 for (l=0; l<AmountGnrtn; l++) {
                                     if ((ScaleXY[i-2][l]!=0) & (ScaleXY[i-2][l]!=(BrkPnt+1))) {
-                                        if (FmlsData.PrntFml[n][FmlGnrtnData.FmlID[k]] == PrsnXYRW.PrsnID[ScaleXY[i-2][l]-1])
+                                        if (FmlsData.PrntFml[n][FmlGnrtnData.FmlID[k]] == PrsnXYRW.getPrsnID(ScaleXY[i-2][l]-1))
                                             break M1;
                                     }
                                 }
                             }
                         }
                     }
-                    PrsnXYRW.iX[ScaleXY[i][j]-1] += iSt;
+                    PrsnXYRW.setiX(ScaleXY[i][j]-1, PrsnXYRW.getiX(ScaleXY[i][j]-1) + iSt);
                     ScaleXY[i+iSt][j] = ScaleXY[i][j];
                     ScaleXY[i][j] = 0;
                 }
@@ -261,9 +257,9 @@ class Persons2d {
         boolean bl, br;
 
         for (j=0; j<2; j++) {
-            M0:for (i=0; i<PrsnXYRW.AmntPrsn; i++) {
-                if (PrsnXYRW.PrsnID[i] == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[FamilyID]]) {
-                    iPrntsX[j] = PrsnXYRW.iX[i];
+            M0:for (i=0; i<PrsnXYRW.getAmntPrsn(); i++) {
+                if (PrsnXYRW.getPrsnID(i) == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[FamilyID]]) {
+                    iPrntsX[j] = PrsnXYRW.getiX(i);
                     break M0;
                 }
             }
@@ -275,8 +271,8 @@ class Persons2d {
             OffsX = iPrntsX[1];
 
         for (i=0; i<FmlsData.AmntOfsprFml[FmlGnrtnData.FmlID[FamilyID]]; i++) {
-            M1:for (j=0; j<PrsnXYRW.AmntPrsn; j++) {
-                if (PrsnXYRW.PrsnID[j] == FmlsData.OfsprFml[FmlGnrtnData.FmlID[FamilyID]][i]) {
+            M1:for (j=0; j<PrsnXYRW.getAmntPrsn(); j++) {
+                if (PrsnXYRW.getPrsnID(j) == FmlsData.OfsprFml[FmlGnrtnData.FmlID[FamilyID]][i]) {
                     if (!FrsnXok[j]) {
                         if (PdgrFrOff > 1) {
                             if (!PutPrsnX(j, OffsX)) return false;
@@ -298,9 +294,9 @@ class Persons2d {
                                 for (k=0; k<FmlsData.AmntOfsprFml[FmlGnrtnData.FmlID[FamilyID]]; k++)
                                 M2:{
                                     if (k != i) {
-                                        for (l=0; l<PrsnXYRW.AmntPrsn; l++) {
-                                            if (PrsnXYRW.PrsnID[l] == FmlsData.OfsprFml[FmlGnrtnData.FmlID[FamilyID]][k]) {
-                                                if (PrsnXYRW.iX[l] < OffsX) {
+                                        for (l=0; l<PrsnXYRW.getAmntPrsn(); l++) {
+                                            if (PrsnXYRW.getPrsnID(l) == FmlsData.OfsprFml[FmlGnrtnData.FmlID[FamilyID]][k]) {
+                                                if (PrsnXYRW.getiX(l) < OffsX) {
                                                     bl = true;
                                                     break M2;
                                                 }
@@ -312,19 +308,13 @@ class Persons2d {
                                         }
                                     }
                                 }
-                                if (bl & br) {
-                                    if (!PutPrsnX(j, OffsX)) return false;
-                                    return true;
-                                }
+                                if (bl & br)
+                                    return PutPrsnX(j, OffsX);
                                 else {
-                                    if (bl) {
-                                        if (!PutPrsnX(j, OffsX+1)) return false;
-                                        return true;
-                                    }
-                                    else {
-                                        if (!PutPrsnX(j, OffsX-1)) return false;
-                                        return true;
-                                    }
+                                    if (bl)
+                                        return PutPrsnX(j, OffsX + 1);
+                                    else
+                                        return PutPrsnX(j, OffsX - 1);
                                 }
                             }
                         }
@@ -374,11 +364,11 @@ class Persons2d {
         }
         AmountGnrtn++;
         //выделение массива - сетка родословной
-        ScaleXY = new int[PrsnXYRW.AmntPrsn*2][];
-        for (i=0; i<PrsnXYRW.AmntPrsn*2; i++)
+        ScaleXY = new int[PrsnXYRW.getAmntPrsn()*2][];
+        for (i=0; i<PrsnXYRW.getAmntPrsn()*2; i++)
             ScaleXY[i] = new int[AmountGnrtn];
 
-        FrsnXok = new boolean[PrsnXYRW.AmntPrsn];
+        FrsnXok = new boolean[PrsnXYRW.getAmntPrsn()];
 
         PdgrEdge = -1;
 
@@ -402,9 +392,9 @@ class Persons2d {
                 for (i=0; i<FmlGnrtnData.AmntFml; i++) {
                     for (m=0; m<2; m++)
                     M4:{
-                        for (n=0; n<PrsnXYRW.AmntPrsn; n++) {
-                            if (PrsnXYRW.PrsnID[n] == FmlsData.PrntFml[m][FmlGnrtnData.FmlID[i]]) {
-                                iPrnt[m] = PrsnXYRW.iX[n];
+                        for (n=0; n<PrsnXYRW.getAmntPrsn(); n++) {
+                            if (PrsnXYRW.getPrsnID(n) == FmlsData.PrntFml[m][FmlGnrtnData.FmlID[i]]) {
+                                iPrnt[m] = PrsnXYRW.getiX(n);
                                 break M4;
                             }
                         }
@@ -418,7 +408,7 @@ class Persons2d {
                         if (ScaleXY[j+1][l] > 0) {
                             ScaleXY[j][l] = ScaleXY[j+1][l];
                             ScaleXY[j+1][l] = 0;
-                            PrsnXYRW.iX[ScaleXY[j][l]-1]--;
+                            PrsnXYRW.setiX(ScaleXY[j][l]-1, PrsnXYRW.getiX(ScaleXY[j][l]-1)-1);
                         }
                     }
                 }
@@ -427,20 +417,20 @@ class Persons2d {
             }
         } while(bb);
         //Поиск тех, по кому можно расширять родословную.
-        for (i=0; i<PrsnXYRW.AmntPrsn; i++)
+        for (i=0; i<PrsnXYRW.getAmntPrsn(); i++)
         M1:{
             for (j=0; j<FmlsData.AmntFml; j++)
             M0:{
                 bb = false;
                 M2:{
                     for (k=0; k<2; k++) {
-                        if (PrsnXYRW.PrsnID[i] == FmlsData.PrntFml[k][j]) {
+                        if (PrsnXYRW.getPrsnID(i) == FmlsData.PrntFml[k][j]) {
                             bb = true;
                             break M2;
                         }
                     }
                     for (k=0; k<FmlsData.AmntOfsprFml[j]; k++) {
-                        if (PrsnXYRW.PrsnID[i] == FmlsData.OfsprFml[j][k]) {
+                        if (PrsnXYRW.getPrsnID(i) == FmlsData.OfsprFml[j][k]) {
                             bb = true;
                             break M2;
                         }

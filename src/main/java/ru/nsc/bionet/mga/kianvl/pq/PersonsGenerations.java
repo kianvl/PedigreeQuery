@@ -44,16 +44,16 @@ class PersonsGenerations {
 
         // начало работы с индивидуальными поколениями
         PersonXYRW PrsnXYRW = new PersonXYRW();
-        PrsnXYRW.AmntPrsn = PdgrData.getAmntPrsns();
+        PrsnXYRW.setAmntPrsn(PdgrData.getAmntPrsns());
         PrsnXYRW.ArrayData();
 
         AmntPrsns = 0;
         // выбор индивидов среди потомков семей
         for (i=0; i<FmlGnrtnData.AmntFml; i++) {
             for (j=0; j<FmlsData.AmntOfsprFml[FmlGnrtnData.FmlID[i]]; j++) {
-                PrsnXYRW.PrsnID[AmntPrsns] = FmlsData.OfsprFml[FmlGnrtnData.FmlID[i]][j];
-                PrsnXYRW.SexID[AmntPrsns] = PdgrData.getSexID(PrsnXYRW.PrsnID[AmntPrsns]);
-                PrsnXYRW.iY[AmntPrsns] = FmlGnrtnData.FmlGnrtn[i] + 1;
+                PrsnXYRW.setPrsnID(AmntPrsns, FmlsData.OfsprFml[FmlGnrtnData.FmlID[i]][j]);
+                PrsnXYRW.setSexID(AmntPrsns, PdgrData.getSexID(PrsnXYRW.getPrsnID(AmntPrsns)));
+                PrsnXYRW.setiY(AmntPrsns, FmlGnrtnData.FmlGnrtn[i]+1);
                 AmntPrsns++;
             }
         }
@@ -63,22 +63,22 @@ class PersonsGenerations {
             for (j=0; j<2; j++)
             M0:{
                 for (k=0; k<AmntPrsns; k++) {
-                    if (PrsnXYRW.PrsnID[k] == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[i]]) {
+                    if (PrsnXYRW.getPrsnID(k) == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[i]]) {
                         g[j] = k;
                         break M0;
                     }
                 }
-                PrsnXYRW.PrsnID[AmntPrsns] = FmlsData.PrntFml[j][FmlGnrtnData.FmlID[i]];
-                PrsnXYRW.SexID[AmntPrsns] = PdgrData.getSexID(PrsnXYRW.PrsnID[AmntPrsns]);
-                PrsnXYRW.iY[AmntPrsns] = FmlGnrtnData.FmlGnrtn[i];
+                PrsnXYRW.setPrsnID(AmntPrsns, FmlsData.PrntFml[j][FmlGnrtnData.FmlID[i]]);
+                PrsnXYRW.setSexID(AmntPrsns, PdgrData.getSexID(PrsnXYRW.getPrsnID(AmntPrsns)));
+                PrsnXYRW.setiY(AmntPrsns, FmlGnrtnData.FmlGnrtn[i]);
                 g[j] = AmntPrsns;
                 AmntPrsns++;
             }
-            if (PrsnXYRW.iY[g[0]] != PrsnXYRW.iY[g[1]])
+            if (PrsnXYRW.getiY(g[0]) != PrsnXYRW.getiY(g[1]))
                 return false;
         }
 
-        PrsnXYRW.AmntPrsn = AmntPrsns;
+        PrsnXYRW.setAmntPrsn(AmntPrsns);
 
         try {
             PrsnXYRW.RWData(FilePrsnXYName, 'w');

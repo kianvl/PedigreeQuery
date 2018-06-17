@@ -50,10 +50,10 @@ class PedigreeLines {
         for (i=0; i<PdgrLnsRW.AmntFml; i++) {
             //Родительская линия
             for (j=0; j<2; j++) {
-                M0:for (k=0; k<PrsnXYRW.AmntPrsn; k++) {
-                    if (PrsnXYRW.PrsnID[k] == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[i]]) {
-                        PdgrLnsRW.PrntXY[i][j][0] = PrsnXYRW.iX[k];
-                        PdgrLnsRW.PrntXY[i][j][1] = PrsnXYRW.iY[k];
+                M0:for (k=0; k<PrsnXYRW.getAmntPrsn(); k++) {
+                    if (PrsnXYRW.getPrsnID(k) == FmlsData.PrntFml[j][FmlGnrtnData.FmlID[i]]) {
+                        PdgrLnsRW.PrntXY[i][j][0] = PrsnXYRW.getiX(k);
+                        PdgrLnsRW.PrntXY[i][j][1] = PrsnXYRW.getiY(k);
                         break M0;
                     }
                 }
@@ -74,9 +74,9 @@ class PedigreeLines {
 
             //для многоженцев
             M8:if ((PrntXbf[1]-PrntXbf[0]) > 2) {
-                for (j=0; j<PrsnXYRW.AmntPrsn; j++) {
-                    if ((PrsnXYRW.iY[j]==PrntYbf[0]) | (PrsnXYRW.iY[j]==PrntYbf[1])) {
-                        if ((PrsnXYRW.iX[j]>PrntXbf[0]) & (PrsnXYRW.iX[j]<PrntXbf[1])) {
+                for (j=0; j<PrsnXYRW.getAmntPrsn(); j++) {
+                    if ((PrsnXYRW.getiY(j)==PrntYbf[0]) | (PrsnXYRW.getiY(j)==PrntYbf[1])) {
+                        if ((PrsnXYRW.getiX(j)>PrntXbf[0]) & (PrsnXYRW.getiX(j)<PrntXbf[1])) {
                             PdgrLnsRW.PrntLvl[i] = 1;
                             break M8;
                         }
@@ -91,9 +91,9 @@ class PedigreeLines {
             PdgrLnsRW.AmntOfsp[i] = FmlsData.AmntOfsprFml[FmlGnrtnData.FmlID[i]];
             PdgrLnsRW.SbPrsn[i] = new int[PdgrLnsRW.AmntOfsp[i]];
             for (j=0; j<PdgrLnsRW.AmntOfsp[i]; j++) {
-                M1:for (k=0; k<PrsnXYRW.AmntPrsn; k++) {
-                    if (PrsnXYRW.PrsnID[k] == FmlsData.OfsprFml[FmlGnrtnData.FmlID[i]][j]) {
-                        PdgrLnsRW.SbPrsn[i][j] = PrsnXYRW.iX[k];
+                M1:for (k=0; k<PrsnXYRW.getAmntPrsn(); k++) {
+                    if (PrsnXYRW.getPrsnID(k) == FmlsData.OfsprFml[FmlGnrtnData.FmlID[i]][j]) {
+                        PdgrLnsRW.SbPrsn[i][j] = PrsnXYRW.getiX(k);
                         break M1;
                     }
                 }
@@ -136,9 +136,9 @@ class PedigreeLines {
         int MaxX = 0;
         int iX1=0, iX2=0, jX1=0, jX2=0;
         boolean bb;
-        for (i=0; i<PrsnXYRW.AmntPrsn; i++) {
-            if (PrsnXYRW.iX[i] >= MaxX)
-                MaxX = PrsnXYRW.iX[i]+1;
+        for (i=0; i<PrsnXYRW.getAmntPrsn(); i++) {
+            if (PrsnXYRW.getiX(i) >= MaxX)
+                MaxX = PrsnXYRW.getiX(i)+1;
         }
         int NFml = 0;
         for (i=1; i<=MaxX; i++) {

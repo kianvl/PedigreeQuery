@@ -103,10 +103,10 @@ class PedigreeQuerySteps {
                 meX = me.getX();
                 meY = me.getY();
                 if (me.getButton() == 1) {
-                    for (i=0; i<DrPdgr.AmntPrsn; i++) {
-                        if ((meX > DrPdgr.PrsnXY[i][0]) & (meY > DrPdgr.PrsnXY[i][1]) & (meX < DrPdgr.PrsnXY[i][0]+DrPdgr.SS) & (meY < DrPdgr.PrsnXY[i][1]+DrPdgr.SS)) {
-                            if (DrPdgr.bNxt[i]) {
-                                if (!DoStep(DrPdgr.PrsnID[i])) {
+                    for (i=0; i<DrPdgr.getAmntPrsn(); i++) {
+                        if ((meX > DrPdgr.getPrsnXY(i, 0)) & (meY > DrPdgr.getPrsnXY(i, 1)) & (meX < DrPdgr.getPrsnXY(i, 0)+DrPdgr.SS) & (meY < DrPdgr.getPrsnXY(i, 1)+DrPdgr.SS)) {
+                            if (DrPdgr.getbNxt(i)) {
+                                if (!DoStep(DrPdgr.getPrsnID(i))) {
                                     Sequence Sqnc = new Sequence();
                                     try {
                                         Sqnc.GetSequence(FlNmSequence);
@@ -123,7 +123,7 @@ class PedigreeQuerySteps {
                                         JOptionPane.showMessageDialog(ParentFrame, "" + e);
                                         return;
                                     }
-                                    sz = PdgrData.getPrsnID(DrPdgr.PrsnID[i]);
+                                    sz = PdgrData.getPrsnID(DrPdgr.getPrsnID(i));
                                     DoStep(-1);
                                     JOptionPane.showMessageDialog(ParentFrame, "Undrawable pedigree structure!");
                                     JOptionPane.showMessageDialog(ParentFrame, "The ID of the last reqwest person is \"" + sz + "\".\nTry to run the project from this person.");

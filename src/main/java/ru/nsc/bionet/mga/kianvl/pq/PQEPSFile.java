@@ -36,7 +36,7 @@ class PQEPSFile {
         int GnrtLvl[];
 
 //        amntPrsn = PrsnXYRW.getAmntPrsn();
-        amntPrsn = PrsnXYRW.AmntPrsn;
+        amntPrsn = PrsnXYRW.getAmntPrsn();
         PrsnXY = new int[amntPrsn][];
         for (i=0; i<amntPrsn; i++)
             PrsnXY[i] = new int[2];
@@ -54,10 +54,10 @@ class PQEPSFile {
 
         PdgrMxX = PdgrMxY = 0;
         for (i=0; i<amntPrsn; i++) {
-            if (PrsnXYRW.iX[i] > PdgrMxX)
-                PdgrMxX = PrsnXYRW.iX[i];
-            if (PrsnXYRW.iY[i] > PdgrMxY)
-                PdgrMxY = PrsnXYRW.iY[i];
+            if (PrsnXYRW.getiX(i) > PdgrMxX)
+                PdgrMxX = PrsnXYRW.getiX(i);
+            if (PrsnXYRW.getiY(i) > PdgrMxY)
+                PdgrMxY = PrsnXYRW.getiY(i);
         }
         PdgrMxX++;
         DimX = (PdgrMxX) * SSD;
@@ -128,9 +128,9 @@ class PQEPSFile {
         k = 0;
         //Индивидуальные символы
         for (i=0; i<amntPrsn; i++) {
-            PrsnXY[i][0] = PrsnXYRW.iX[i] * SSD;
-            PrsnXY[i][1] = GnrtLvl[PrsnXYRW.iY[i]];
-            PrsnID[i] = PrsnXYRW.PrsnID[i];
+            PrsnXY[i][0] = PrsnXYRW.getiX(i) * SSD;
+            PrsnXY[i][1] = GnrtLvl[PrsnXYRW.getiY(i)];
+            PrsnID[i] = PrsnXYRW.getPrsnID(i);
             bNxt[i] = PrsnXYRW.bNxt[i];
             m = -1;
             for (j=0; j<PQFlDtRW.AmntPrsn; j++) {
@@ -144,7 +144,7 @@ class PQEPSFile {
             }
 
             // Draw a man
-            if (PrsnXYRW.SexID[i] == 1) {
+            if (PrsnXYRW.getSexID(i) == 1) {
                 if (m != -1) {
                     WrtEPSFile.EPSLineStart (PrsnXY[i][0], DimY-PrsnXY[i][1]);
                     WrtEPSFile.EPSLineTo (PrsnXY[i][0]+SS, DimY-PrsnXY[i][1]);

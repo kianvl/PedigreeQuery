@@ -28,12 +28,40 @@ class DrawPedigree extends JPanel {
     private int AS2;
     private int SSD; //SS + SD
     private int SS2; //SS/2;
-    int AmntPrsn;
-    int PrsnXY[][];
-    int PrsnID[];
-    int RqdPrsnID;
-    boolean bNxt[];
+    private int amntPrsn;
+    private int prsnXY[][];
+    private int prsnID[];
+//    int RqdPrsnID;  // Never used
+    private boolean bNxt[];
 
+    // Interfaces
+    public void setAmntPrsn(int amntPrsn) {
+        this.amntPrsn = amntPrsn;
+    }
+    public int getAmntPrsn() {
+        return amntPrsn;
+    }
+
+    public void setPrsnID(int i, int prsnID) {
+        this.prsnID[i] = prsnID;
+    }
+    public int getPrsnID(int i) {
+        return prsnID[i];
+    }
+
+    public void setbNxt(int i, boolean bNxt) {
+        this.bNxt[i] = bNxt;
+    }
+    public boolean getbNxt(int i) {
+        return bNxt[i];
+    }
+
+    public void setPrsnXY(int i, int xy, int prsnXY) {
+        this.prsnXY[i][xy] = prsnXY;
+    }
+    public int getPrsnXY(int i, int xy) {
+        return prsnXY[i][xy];
+    }
 
     boolean RWData (char rw) throws Exception {
         int i;
@@ -116,12 +144,12 @@ class DrawPedigree extends JPanel {
         int PdgrMxX, PdgrMxY;
         int GnrtLvl[];
 
-        AmntPrsn = PrsnXYRW.AmntPrsn;
-        PrsnXY = new int[AmntPrsn][];
-        for (i=0; i<AmntPrsn; i++)
-            PrsnXY[i] = new int[2];
-        PrsnID = new int[AmntPrsn];
-        bNxt = new boolean[AmntPrsn];
+        amntPrsn = PrsnXYRW.getAmntPrsn();
+        prsnXY = new int[amntPrsn][];
+        for (i=0; i<amntPrsn; i++)
+            prsnXY[i] = new int[2];
+        prsnID = new int[amntPrsn];
+        bNxt = new boolean[amntPrsn];
 
         SSD = SS + SD;
         SS2 = SS / 2;
@@ -138,11 +166,11 @@ class DrawPedigree extends JPanel {
         }
 
         PdgrMxX = PdgrMxY = 0;
-        for (i=0; i<AmntPrsn; i++) {
-            if (PrsnXYRW.iX[i] > PdgrMxX)
-                PdgrMxX = PrsnXYRW.iX[i];
-            if (PrsnXYRW.iY[i] > PdgrMxY)
-                PdgrMxY = PrsnXYRW.iY[i];
+        for (i=0; i<amntPrsn; i++) {
+            if (PrsnXYRW.getiX(i) > PdgrMxX)
+                PdgrMxX = PrsnXYRW.getiX(i);
+            if (PrsnXYRW.getiY(i) > PdgrMxY)
+                PdgrMxY = PrsnXYRW.getiY(i);
         }
         PdgrMxX++;
         DimX = (PdgrMxX) * SSD;
@@ -202,13 +230,13 @@ class DrawPedigree extends JPanel {
 
         k = 0;
         //Индивидуальные символы
-        for (i=0; i<AmntPrsn; i++) {
-            PrsnXY[i][0] = PrsnXYRW.iX[i] * SSD;
-            PrsnXY[i][1] = GnrtLvl[PrsnXYRW.iY[i]];
-            PrsnID[i] = PrsnXYRW.PrsnID[i];
+        for (i=0; i<amntPrsn; i++) {
+            prsnXY[i][0] = PrsnXYRW.getiX(i) * SSD;
+            prsnXY[i][1] = GnrtLvl[PrsnXYRW.getiY(i)];
+            prsnID[i] = PrsnXYRW.getPrsnID(i);
             bNxt[i] = PrsnXYRW.bNxt[i];
             for (j=0; j<PQFlDtRW.AmntPrsn; j++) {
-                if (PdgrData.getPrsnID(PrsnID[i]).equals(PQFlDtRW.PrsnID[j])) {
+                if (PdgrData.getPrsnID(prsnID[i]).equals(PQFlDtRW.PrsnID[j])) {
                     cvet0 = new Color(PQFlDtRW.ClrRGB[j][0], PQFlDtRW.ClrRGB[j][1], PQFlDtRW.ClrRGB[j][2]);
                     k = j;
                 }
@@ -217,30 +245,30 @@ class DrawPedigree extends JPanel {
                 cvet1 = new Color (255, 0, 0);
             else
                 cvet1 = new Color (0, 0, 0);
-            if (PrsnXYRW.SexID[i] == 1) {
+            if (PrsnXYRW.getSexID(i) == 1) {
                 g.setColor (cvet0);
-                g.fillRect (PrsnXY[i][0], PrsnXY[i][1], SS, SS);
+                g.fillRect (prsnXY[i][0], prsnXY[i][1], SS, SS);
                 g.setColor (cvet1);
-                g.drawRect (PrsnXY[i][0], PrsnXY[i][1], SS, SS);
+                g.drawRect (prsnXY[i][0], prsnXY[i][1], SS, SS);
             }
             else {
                 g.setColor (cvet0);
-                g.fillOval(PrsnXY[i][0], PrsnXY[i][1], SS, SS);
+                g.fillOval(prsnXY[i][0], prsnXY[i][1], SS, SS);
                 g.setColor (cvet1);
-                g.drawOval(PrsnXY[i][0], PrsnXY[i][1], SS, SS);
+                g.drawOval(prsnXY[i][0], prsnXY[i][1], SS, SS);
             }
             g.setColor(Color.black);
             for (j=0; j<PQFlDtRW.AmntPrsn; j++) {
-                if (PdgrData.getPrsnID(PrsnID[i]).equals(PQFlDtRW.PrsnID[j])) {
+                if (PdgrData.getPrsnID(prsnID[i]).equals(PQFlDtRW.PrsnID[j])) {
                     if (PQFlDtRW.CrsLn[j])
-                        g.drawLine(PrsnXY[i][0]+SS+2, PrsnXY[i][1]-2, PrsnXY[i][0]-2, PrsnXY[i][1]+SS+2);
+                        g.drawLine(prsnXY[i][0]+SS+2, prsnXY[i][1]-2, prsnXY[i][0]-2, prsnXY[i][1]+SS+2);
                 }
             }
 //			s = ""; // ?
 //			s += PrsnID[i]; // ?
 //			g.drawString(s, PrsnXY[i][0], PrsnXY[i][1]+SP); //?
             for (j=0; j<PQFlDtRW.AmntSgn; j++)
-                g.drawString(PQFlDtRW.Signs[k][j], PrsnXY[i][0], PrsnXY[i][1]+SS+SP*(j+1));
+                g.drawString(PQFlDtRW.Signs[k][j], prsnXY[i][0], prsnXY[i][1]+SS+SP*(j+1));
         }
 
         for (i=0; i<PdgrLnsRW.AmntFml; i++) {

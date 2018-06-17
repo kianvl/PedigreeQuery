@@ -20,31 +20,31 @@ class PedigreeData {
     private int prntID[][] = new int[2][];
 
     // Interfaces
-    void setAmntPrsns (int amntPrsns) {
+    public void setAmntPrsns (int amntPrsns) {
         this.amntPrsns = amntPrsns;
     }
-    int getAmntPrsns () {
+    public int getAmntPrsns () {
         return amntPrsns;
     }
 
-    void setPrsnID (int i, String prsnID) {
+    public void setPrsnID (int i, String prsnID) {
         this.prsnID[i] = prsnID;
     }
-    String getPrsnID (int i) {
+    public String getPrsnID (int i) {
         return prsnID[i];
     }
 
-    void setSexID (int i, byte sexID) {
+    public void setSexID (int i, byte sexID) {
         this.sexID[i] = sexID;
     }
-    byte getSexID (int i) {
+    public byte getSexID (int i) {
         return sexID[i];
     }
 
-    void setPrntID (int fm, int i, int prntID) {
+    public void setPrntID (int fm, int i, int prntID) {
         this.prntID[fm][i] = prntID;
     }
-    int getPrntID (int fm, int i) {
+    public int getPrntID (int fm, int i) {
         return prntID[fm][i];
     }
 

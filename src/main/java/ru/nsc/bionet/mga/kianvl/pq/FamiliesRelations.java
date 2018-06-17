@@ -54,8 +54,8 @@ class FamiliesRelations {
             for (j=0; j<2; j++) {
                 m = 0;
                 for (k=0; k<FmlData.AmntOfsprFml[FmlGnrtnData.FmlID[i]]; k++) {
-                    for (l=0; l<FmlGnrtnData.AmntFml; l++)
-                    M0:{
+                    M0:for (l=0; l<FmlGnrtnData.AmntFml; l++)
+                    {
                         //кто из родителей имеет связь и с какой ЯС?
                         if (FmlData.OfsprFml[FmlGnrtnData.FmlID[i]][k] == FmlData.PrntFml[j][FmlGnrtnData.FmlID[l]]) {
                             FmlsRltn.FmlRltnsVrtUp[l][j] = i+1;
